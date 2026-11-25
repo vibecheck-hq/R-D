@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>VibeCheck R&amp;D Lab · App 1 Bridge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    body { background: #0A0F1D; color: #E2E8F0; font-family: ui-sans-serif, system-ui, -apple-system, sans-serif; }
+    .glass { background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(14px); border: 1px solid rgba(51, 65, 85, 0.55); }
+    canvas { touch-action: none; }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-6">
+
+  <!-- TOP BAR -->
+  <header class="max-w-6xl mx-auto mb-5 flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h1 class="text-2xl font-bold tracking-tight bg-gradient-to-r from-[#06B6D4] to-[#2DD4BF] bg-clip-text text-transparent">
+        R&amp;D Telemetry Workbench
+      </h1>
+      <p class="text-xs text-slate-400 font-mono">
+        APP 1: riluyoqwgepbliqgqnho.supabase.co · LIVE EDGE: /functions/v1/clever-handler
+      </p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span id="authBadge" class="px-3 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30">
+        AUTH: SIGNED_OUT
+      </span>
+      <button id="signOutBtn" class="hidden px-3 py-1 rounded-lg text-xs bg-slate-800 hover:bg-slate-700 border border-slate-600">
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto space-y-5">
+
+    <!-- AUTH PANEL (REQUIRED FOR STRICT RLS WRITES TO APP 1) -->
+    <section id="authPanel" class="glass rounded-2xl p-5">
+      <div class="flex flex-wrap items-end gap-3">
+        <div class="flex-1 min-w-[200px]">
+          <label class="block text-xs text-slate-400 mb-1">App 1 Owner Email</label>
+          <input id="emailInput" type="email" placeholder="you@domain.com"
+            class="w-full px-3 py-2 rounded-lg bg-[#0B0F10] border border-slate-700 text-sm focus:outline-none focus:border-[#06B6D4]" />
+        </div>
+        <div class="flex-1 min-w-[180px]">
+          <label class="block text-xs text-slate-400 mb-1">Password</label>
+          <input id="passInput" type="password" placeholder="••••••••"
+            class="w-full px-3 py-2 rounded-lg bg-[#0B0F10] border border-slate-700 text-sm focus:outline-none focus:border-[#06B6D4]" />
+        </div>
+        <button id="signInBtn"
+          class="px-5 py-2 rounded-lg bg-[#06B6D4] hover:bg-[#2DD4BF] text-slate-950 font-semibold text-sm transition-colors">
+          Sign In to App 1
+        </button>
+      </div>
+      <p id="authMsg" class="text-xs text-slate-400 mt-2">
+        Sign in with the user you created in Supabase → Authentication → Users to enable RLS-protected saving. (Live Edge Function testing also works immediately below.)
+      </p>
+    </section>
+
+    <!-- NAVIGATION TABS -->
+    <div class="flex flex-wrap gap-2">
+      <button data-tab="edgeTab" class="tabBtn px-4 py-2 rounded-xl text-sm font-medium bg-[#06B6D4]/20 text-[#2DD4BF] border border-[#06B6D4]/40">
+        1. Live clever-handler &amp; Chronological Overlay
+      </button>
+      <button data-tab="stylusTab" class="tabBtn px-4 py-2 rounded-xl text-sm font-medium glass text-slate-300">
+        2. S-Pen / Touch Telemetry Pad (Patched)
+      </button>
+      <button data-tab="dbTab" class="tabBtn px-4 py-2 rounded-xl text-sm font-medium glass text-slate-300">
+        3. App 1 Saved R&amp;D Runs
+      </button>
+    </div>
+
+    <!-- TAB 1: LIVE CLEVER-HANDLER + CHRONOLOGICAL WHATSAPP & BIORHYTHM ENGINE -->
+    <section id="edgeTab" class="tabPanel grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="lg:col-span-5 glass rounded-2xl p-5 space-y-4">
+        <h2 class="text-base font-semibold text-[#2DD4BF]">A. Ping Live Edge Function (clever-handler)</h2>
+        <textarea id="singleText" rows="4"
+          class="w-full p-3 rounded-xl bg-[#0B0F10] border border-slate-700 text-sm focus:outline-none focus:border-[#06B6D4]"
+          placeholder="Paste a single message to run through App 1's live LIWC psycholinguistics engine..."></textarea>
+        <div class="flex gap-2">
+          <button id="pingEdgeBtn"
+            class="flex-1 py-2.5 rounded-xl bg-[#06B6D4] hover:bg-[#2DD4BF] text-slate-950 font-semibold text-sm">
+            Run Live clever-handler
+          </button>
+          <button id="saveSingleBtn"
+            class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs">
+            Save to App 1
+          </button>
+        </div>
+
+        <hr class="border-slate-700/60" />
+
+        <h2 class="text-base font-semibold text-[#2DD4BF]">B. Chronological WhatsApp .txt + 23d Overlay</h2>
+        <p class="text-xs text-slate-400">
+          Select one or more exported WhatsApp <code class="text-slate-200">.txt</code> files. Events are merged in strict UTC chronological order, overlaid with observational 23-day ψ_P(t) from 15/08/1985 19:39 UTC, and scored with patched CFX-v3.
+        </p>
+        <input id="chatFiles" type="file" multiple accept=".txt"
+          class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-slate-800 file:text-[#2DD4BF] hover:file:bg-slate-700" />
+        <div class="flex gap-2">
+          <button id="runBatchBtn"
+            class="flex-1 py-2.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-200 font-semibold text-sm">
+            Merge &amp; Analyze Chronologically
+          </button>
+          <button id="saveBatchBtn"
+            class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs">
+            Save Run
+          </button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 glass rounded-2xl p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-semibold text-slate-100">Live Output &amp; Chronological Telemetry</h2>
+          <span id="edgeStatus" class="text-xs font-mono text-slate-400">IDLE</span>
+        </div>
+        <div id="batchMetrics" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 hidden"></div>
+        <pre id="edgeOutput"
+          class="flex-1 min-h-[300px] max-h-[480px] overflow-auto p-4 rounded-xl bg-[#0B0F10] border border-slate-800 text-xs font-mono text-[#2DD4BF] whitespace-pre-wrap">// Tap "Run Live clever-handler" or upload WhatsApp .txt exports to inspect live results.</pre>
+      </div>
+    </section>
+
+    <!-- TAB 2: PATCHED S-PEN / POINTER TELEMETRY PAD -->
+    <section id="stylusTab" class="tabPanel hidden grid-cols-1 lg:grid-cols-12 gap-5">
+      <div class="lg:col-span-8 glass rounded-2xl p-4 flex flex-col gap-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-sm font-semibold text-[#2DD4BF]">SM-X946B / S24 FE Calibrated Capture Pad</span>
+          <div class="flex items-center gap-3 text-xs">
+            <label class="flex items-center gap-1.5 text-slate-300 cursor-pointer">
+              <input id="leftHandToggle" type="checkbox" checked class="accent-[#06B6D4]" />
+              Left-Hand Debias (0.78×)
+            </label>
+            <button id="clearPadBtn" class="px-3 py-1 rounded-lg bg-slate-800 border border-slate-600">Clear</button>
+            <button id="saveStylusBtn" class="px-3 py-1 rounded-lg bg-[#06B6D4] text-slate-950 font-semibold">Save Stroke Run</button>
+          </div>
+        </div>
+        <div class="relative rounded-xl overflow-hidden border border-slate-700 bg-[#0B0F10] h-[360px]">
+          <canvas id="stylusCanvas" class="w-full h-full block"></canvas>
+        </div>
+      </div>
+      <div class="lg:col-span-4 glass rounded-2xl p-5 space-y-3">
+        <h2 class="text-base font-semibold text-[#2DD4BF]">Patched Biomechanical Metrics</h2>
+        <div id="stylusStats" class="space-y-2.5 text-xs font-mono">
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">Samples: <span id="stSamples" class="text-[#2DD4BF]">0</span></div>
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">Velocity V_p90 / V_med: <span id="stVelRatio" class="text-[#2DD4BF]">0.00</span></div>
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">Kim–Jo Burstiness (B_n): <span id="stBn" class="text-[#2DD4BF]">—</span></div>
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">S_shunt (gated B_n &gt; 0.15): <span id="stShunt" class="text-[#2DD4BF]">0.00</span></div>
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">Debiased Mean Pressure: <span id="stPress" class="text-[#2DD4BF]">0.000</span></div>
+          <div class="p-3 rounded-lg bg-[#0B0F10] border border-slate-800">Current ψ_P(now) Overlay: <span id="stPsi" class="text-amber-300">—</span></div>
+        </div>
+        <p class="text-[11px] text-slate-400">
+          Applies DPR-corrected mm scaling (9.4097 px/mm), zero .toFixed() inner-loop string allocation, and Kim–Jo finite-sample pause burstiness.
+        </p>
+      </div>
+    </section>
+
+    <!-- TAB 3: APP 1 SAVED RUNS INSPECTOR -->
+    <section id="dbTab" class="tabPanel hidden glass rounded-2xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-base font-semibold text-[#2DD4BF]">App 1 Postgres: rd_chronological_runs</h2>
+        <button id="refreshDbBtn" class="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs">
+          Refresh From App 1
+        </button>
+      </div>
+      <div id="dbList" class="space-y-3 text-xs font-mono text-slate-300">
+        Sign in and tap "Refresh From App 1" to load stored R&amp;D runs.
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // --- APP 1 LIVE CONFIGURATION ---
+    const SUPABASE_URL = 'https://riluyoqwgepbliqgqnho.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_9_ExxuS68A8vVp7QkTOS_A_Z3v_YdzP';
+    const EDGE_URL = `${SUPABASE_URL}/functions/v1/clever-handler`;
+
+    const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+    // --- VERIFIED CONSTANTS (PATCHED PER BIORHYTHMS AUDIT) ---
+    const BIRTH_EPOCH_MS = Date.UTC(1985, 7, 15, 19, 39, 0); // 1985-08-15T19:39:00Z
+    const MS_PER_DAY = 86_400_000;
+    const PHI = 1.61803398875;
+    const GAMMA = 0.15;
+    const TAU_CRIT_MS = 350.0;
+    const PX_PER_MM = 9.4097;
+
+    let currentSession = null;
+    let lastSingleResult = null;
+    let lastBatchResult = null;
+
+    function calcPsiP(ms) {
+      const tDays = (ms - BIRTH_EPOCH_MS) / MS_PER_DAY;
+      const psiP = Math.sin((2 * Math.PI * tDays) / 23);
+      let band = 'positive';
+      if (Math.abs(psiP) <= 0.15) band = 'zero_crossing';
+      else if (psiP >= 0.75) band = 'peak';
+      else if (psiP <= -0.75) band = 'nadir';
+      else if (psiP < 0) band = 'trough';
+      return { tDays: Math.round(tDays * 1e4) / 1e4, psiP: Math.round(psiP * 1e4) / 1e4, band };
+    }
+
+    function kimJoBurstiness(pauses) {
+      const n = pauses.length;
+      if (n < 3) return null;
+      let sum = 0;
+      for (let i = 0; i < n; i++) sum += pauses[i];
+      const mean = sum / n;
+      if (mean <= 0) return 0;
+      let sq = 0;
+      for (let i = 0; i < n; i++) sq += (pauses[i] - mean) ** 2;
+      const r = Math.sqrt(sq / (n - 1)) / mean;
+      const sn = Math.sqrt(n);
+      return ((sn + 1) * r - (sn - 1)) / ((sn - 2) * r + sn);
+    }
+
+    // --- TAB SWITCHING ---
+    document.querySelectorAll('.tabBtn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tabPanel').forEach((p) => p.classList.add('hidden'));
+        document.querySelectorAll('.tabPanel').forEach((p) => p.classList.remove('grid'));
+        const target = document.getElementById(btn.dataset.tab);
+        target.classList.remove('hidden');
+        if (btn.dataset.tab !== 'dbTab') target.classList.add('grid');
+        document.querySelectorAll('.tabBtn').forEach((b) => {
+          b.className = 'tabBtn px-4 py-2 rounded-xl text-sm font-medium glass text-slate-300';
+        });
+        btn.className = 'tabBtn px-4 py-2 rounded-xl text-sm font-medium bg-[#06B6D4]/20 text-[#2DD4BF] border border-[#06B6D4]/40';
+        if (btn.dataset.tab === 'stylusTab') resizePad();
+      });
+    });
+
+    // --- AUTH HANDLING ---
+    async function syncAuthUI() {
+      const { data: { session } } = await sb.auth.getSession();
+      currentSession = session;
+      const badge = document.getElementById('authBadge');
+      const signOutBtn = document.getElementById('signOutBtn');
+      const authPanel = document.getElementById('authPanel');
+      if (session) {
+        badge.textContent = `AUTH: ${session.user.email}`;
+        badge.className = 'px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/15 text-emerald-300 border border-emerald-500/30';
+        signOutBtn.classList.remove('hidden');
+        authPanel.classList.add('hidden');
+      } else {
+        badge.textContent = 'AUTH: SIGNED_OUT';
+        badge.className = 'px-3 py-1 rounded-full text-xs font-mono bg-amber-500/15 text-amber-300 border border-amber-500/30';
+        signOutBtn.classList.add('hidden');
+        authPanel.classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('signInBtn').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('passInput').value;
+      const msg = document.getElementById('authMsg');
+      msg.textContent = 'Signing in...';
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      msg.textContent = error ? `Error: ${error.message}` : 'Authenticated with App 1.';
+      await syncAuthUI();
+    });
+
+    document.getElementById('signOutBtn').addEventListener('click', async () => {
+      await sb.auth.signOut();
+      await syncAuthUI();
+    });
+
+    // --- MODULE A: LIVE CLEVER-HANDLER CALL ---
+    document.getElementById('pingEdgeBtn').addEventListener('click', async () => {
+      const text = document.getElementById('singleText').value.trim();
+      const status = document.getElementById('edgeStatus');
+      const out = document.getElementById('edgeOutput');
+      if (!text) return (out.textContent = 'Enter a message first.');
+
+      status.textContent = 'CALLING clever-handler...';
+      try {
+        const headers = {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_PUBLISHABLE_KEY,
+        };
+        if (currentSession?.access_token) {
+          headers.Authorization = `Bearer ${currentSession.access_token}`;
+        }
+
+        const res = await fetch(EDGE_URL, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ text, message: text, content: text }),
+        });
+        const data = await res.json();
+        const bio = calcPsiP(Date.now());
+        lastSingleResult = {
+          input_text: text,
+          observational_biorhythm: true,
+          biorhythm_now: bio,
+          edge_response: data,
+        };
+        status.textContent = `HTTP ${res.status}`;
+        out.textContent = JSON.stringify(lastSingleResult, null, 2);
+      } catch (err) {
+        status.textContent = 'ERROR';
+        out.textContent = String(err);
+      }
+    });
+
+    document.getElementById('saveSingleBtn').addEventListener('click', async () => {
+      if (!currentSession) return alert('Sign in to App 1 first so RLS allows writing.');
+      if (!lastSingleResult) return alert('Run clever-handler first.');
+      const { error } = await sb.from('rd_chronological_runs').insert({
+        run_label: `Single Edge Probe (${new Date().toISOString().slice(0, 16)})`,
+        source_type: 'single_message',
+        event_count: 1,
+        summary: lastSingleResult.biorhythm_now,
+        payload: lastSingleResult,
+      });
+      alert(error ? `Save failed: ${error.message}` : 'Saved to App 1 Postgres!');
+    });
+
+    // --- MODULE B: MULTI-FILE CHRONOLOGICAL WHATSAPP PARSER + 23-DAY OVERLAY ---
+    function parseWhatsAppText(raw, fileName) {
+      const lines = raw.split(/\r?\n/);
+      // Matches both "27/08/2025, 21:08 - Name: msg" and "[27/08/2025, 21:08:45] Name: msg"
+      const re = /^\[?(\d{2})\/(\d{2})\/(\d{4}),\s(\d{2}):(\d{2})(?::(\d{2}))?\]?(?:\s-\s|\s)([^:]+):\s(.*)$/;
+      const rows = [];
+      for (const line of lines) {
+        const m = line.match(re);
+        if (!m) continue;
+        const [, dd, mm, yyyy, hh, min, sec = '00', author, msg] = m;
+        const ms = Date.UTC(+yyyy, +mm - 1, +dd, +hh, +min, +sec);
+        const words = msg.trim().split(/\s+/).filter(Boolean);
+        const sents = msg.split(/[.!?]+/).filter((s) => s.trim().length > 0);
+        const meanLen = words.length ? words.reduce((a, w) => a + w.length, 0) / words.length : 0;
+        const lp = Math.min(9.999, meanLen * 1.35);
+        const cn = sents.length ? words.length / sents.length : words.length;
+        const bio = calcPsiP(ms);
+        const cfxPatched = Math.pow(200 / TAU_CRIT_MS, PHI) * ((lp * cn) / (1 + bio.psiP + GAMMA));
+        rows.push({
+          ts_iso: new Date(ms).toISOString(),
+          ms,
+          channel: fileName,
+          author: author.trim(),
+          words: words.length,
+          lp: Math.round(lp * 1e3) / 1e3,
+          cn: Math.round(cn * 1e3) / 1e3,
+          cfx_v3_patched: Math.round(cfxPatched * 1e4) / 1e4,
+          psi_p: bio.psiP,
+          phase_band: bio.band,
+          has_money_term: /£|\bloan\b|\bborrow\b|\bfiver\b|\btenner\b/i.test(msg),
+        });
+      }
+      return rows;
+    }
+
+    document.getElementById('runBatchBtn').addEventListener('click', async () => {
+      const files = document.getElementById('chatFiles').files;
+      const out = document.getElementById('edgeOutput');
+      const status = document.getElementById('edgeStatus');
+      const metricsBox = document.getElementById('batchMetrics');
+      if (!files.length) return (out.textContent = 'Select at least one WhatsApp .txt export.');
+
+      status.textContent = 'PARSING & SORTING...';
+      let allEvents = [];
+      for (const f of files) {
+        const txt = await f.text();
+        allEvents = allEvents.concat(parseWhatsAppText(txt, f.name));
+      }
+      // Strict global chronological order across all uploaded chats
+      allEvents.sort((a, b) => a.ms - b.ms);
+
+      const bandCounts = { peak: 0, positive: 0, zero_crossing: 0, trough: 0, nadir: 0 };
+      const moneyByBand = { peak: 0, positive: 0, zero_crossing: 0, trough: 0, nadir: 0 };
+      for (const ev of allEvents) {
+        bandCounts[ev.phase_band]++;
+        if (ev.has_money_term) moneyByBand[ev.phase_band]++;
+      }
+
+      lastBatchResult = {
+        observational_biorhythm: true,
+        total_events: allEvents.length,
+        date_span: allEvents.length
+          ? `${allEvents[0].ts_iso.slice(0, 10)} → ${allEvents[allEvents.length - 1].ts_iso.slice(0, 10)}`
+          : 'none',
+        phase_distribution: bandCounts,
+        financial_mentions_by_phase: moneyByBand,
+        sample_first_10: allEvents.slice(0, 10),
+        sample_last_10: allEvents.slice(-10),
+      };
+
+      metricsBox.classList.remove('hidden');
+      metricsBox.innerHTML = `
+        <div class="p-3 rounded-xl bg-[#0B0F10] border border-slate-800"><div class="text-[10px] text-slate-400">EVENTS</div><div class="text-lg font-mono text-[#2DD4BF]">${allEvents.length}</div></div>
+        <div class="p-3 rounded-xl bg-[#0B0F10] border border-slate-800"><div class="text-[10px] text-slate-400">PEAK / POS</div><div class="text-lg font-mono text-emerald-300">${bandCounts.peak + bandCounts.positive}</div></div>
+        <div class="p-3 rounded-xl bg-[#0B0F10] border border-slate-800"><div class="text-[10px] text-slate-400">ZERO CROSS</div><div class="text-lg font-mono text-amber-300">${bandCounts.zero_crossing}</div></div>
+        <div class="p-3 rounded-xl bg-[#0B0F10] border border-slate-800"><div class="text-[10px] text-slate-400">TROUGH / NADIR</div><div class="text-lg font-mono text-rose-300">${bandCounts.trough + bandCounts.nadir}</div></div>
+      `;
+
+      status.textContent = `MERGED ${allEvents.length} EVENTS`;
+      out.textContent = JSON.stringify(lastBatchResult, null, 2);
+    });
+
+    document.getElementById('saveBatchBtn').addEventListener('click', async () => {
+      if (!currentSession) return alert('Sign in to App 1 first.');
+      if (!lastBatchResult) return alert('Run chronological merge first.');
+      const { error } = await sb.from('rd_chronological_runs').insert({
+        run_label: `Chrono Merge (${lastBatchResult.date_span})`,
+        source_type: 'whatsapp_batch',
+        event_count: lastBatchResult.total_events,
+        summary: {
+          phase_distribution: lastBatchResult.phase_distribution,
+          financial_mentions_by_phase: lastBatchResult.financial_mentions_by_phase,
+        },
+        payload: lastBatchResult,
+      });
+      alert(error ? `Save failed: ${error.message}` : 'Chronological summary saved to App 1!');
+    });
+
+    // --- MODULE C: PATCHED S-PEN / POINTER TELEMETRY ---
+    const pad = document.getElementById('stylusCanvas');
+    const pctx = pad.getContext('2d');
+    let drawing = false;
+    let lastPt = null;
+    let lastStrokeEnd = 0;
+    let velocities = [];
+    let pressures = [];
+    let pausesMs = [];
+
+    function resizePad() {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = pad.getBoundingClientRect();
+      if (!rect.width) return;
+      pad.width = Math.floor(rect.width * dpr);
+      pad.height = Math.floor(rect.height * dpr);
+      pctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pctx.lineCap = 'round';
+      pctx.strokeStyle = '#2DD4BF';
+    }
+
+    function updateStylusUI() {
+      const n = velocities.length;
+      document.getElementById('stSamples').textContent = String(n);
+      const bio = calcPsiP(Date.now());
+      document.getElementById('stPsi').textContent = `${bio.psiP} (${bio.band})`;
+      if (!n) return;
+      const sorted = [...velocities].sort((a, b) => a - b);
+      const vMed = sorted[Math.floor(n * 0.5)] || 0.001;
+      const vP90 = sorted[Math.floor(n * 0.9)] || vMed;
+      const ratio = vP90 / Math.max(0.001, vMed);
+      const bn = kimJoBurstiness(pausesMs);
+      const shunt = bn !== null && bn > 0.15 ? Math.min(9.99, ratio * (1 + bn) * 2.1) : 0;
+      const meanP = pressures.reduce((a, b) => a + b, 0) / pressures.length;
+
+      document.getElementById('stVelRatio').textContent = String(Math.round(ratio * 100) / 100);
+      document.getElementById('stBn').textContent = bn !== null ? String(Math.round(bn * 1e4) / 1e4) : 'need 3+ strokes';
+      document.getElementById('stShunt').textContent = String(Math.round(shunt * 100) / 100);
+      document.getElementById('stPress').textContent = String(Math.round(meanP * 1e3) / 1e3);
+    }
+
+    pad.addEventListener('pointerdown', (e) => {
+      pad.setPointerCapture(e.pointerId);
+      const now = performance.now();
+      if (lastStrokeEnd > 0) pausesMs.push(Math.round(now - lastStrokeEnd));
+      drawing = true;
+      const rect = pad.getBoundingClientRect();
+      lastPt = { x: e.clientX - rect.left, y: e.clientY - rect.top, t: now };
+    });
+
+    pad.addEventListener('pointermove', (e) => {
+      if (!drawing || !lastPt) return;
+      const rect = pad.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const t = performance.now();
+      const dt = Math.max(1, t - lastPt.t);
+
+      // DPR-corrected millimeter displacement (audit fix)
+      const dxMm = ((x - lastPt.x) * dpr) / PX_PER_MM;
+      const dyMm = ((y - lastPt.y) * dpr) / PX_PER_MM;
+      const velMmPerSec = (Math.hypot(dxMm, dyMm) / dt) * 1000;
+      const leftBias = document.getElementById('leftHandToggle').checked ? 0.78 : 1.0;
+      const pDebiased = (e.pressure || 0.5) * leftBias;
+
+      velocities.push(velMmPerSec);
+      pressures.push(pDebiased);
+
+      pctx.lineWidth = Math.max(1.5, pDebiased * 5.5);
+      pctx.beginPath();
+      pctx.moveTo(lastPt.x, lastPt.y);
+      pctx.lineTo(x, y);
+      pctx.stroke();
+
+      lastPt = { x, y, t };
+    });
+
+    const endStroke = () => {
+      if (!drawing) return;
+      drawing = false;
+      lastStrokeEnd = performance.now();
+      lastPt = null;
+      updateStylusUI();
+    };
+    pad.addEventListener('pointerup', endStroke);
+    pad.addEventListener('pointercancel', endStroke);
+
+    document.getElementById('clearPadBtn').addEventListener('click', () => {
+      pctx.clearRect(0, 0, pad.width, pad.height);
+      velocities = [];
+      pressures = [];
+      pausesMs = [];
+      lastStrokeEnd = 0;
+      updateStylusUI();
+    });
+
+    document.getElementById('saveStylusBtn').addEventListener('click', async () => {
+      if (!currentSession) return alert('Sign in to App 1 first.');
+      if (!velocities.length) return alert('Write a few strokes on the pad first.');
+      const bn = kimJoBurstiness(pausesMs);
+      const summary = {
+        samples: velocities.length,
+        strokes: pausesMs.length + 1,
+        kim_jo_bn: bn !== null ? Math.round(bn * 1e4) / 1e4 : null,
+        biorhythm_now: calcPsiP(Date.now()),
+        observational_biorhythm: true,
+      };
+      const { error } = await sb.from('rd_chronological_runs').insert({
+        run_label: `S-Pen Capture (${velocities.length} pts)`,
+        source_type: 'stylus_stroke',
+        event_count: velocities.length,
+        summary,
+        payload: { pauses_ms: pausesMs, sample_velocities: velocities.slice(0, 200) },
+      });
+      alert(error ? `Save failed: ${error.message}` : 'S-Pen telemetry saved to App 1!');
+    });
+
+    // --- MODULE D: DB INSPECTOR ---
+    document.getElementById('refreshDbBtn').addEventListener('click', async () => {
+      const list = document.getElementById('dbList');
+      if (!currentSession) return (list.textContent = 'Sign in to App 1 first.');
+      list.textContent = 'Querying App 1...';
+      const { data, error } = await sb
+        .from('rd_chronological_runs')
+        .select('id, created_at, run_label, source_type, event_count, summary')
+        .order('created_at', { ascending: false })
+        .limit(20);
+      if (error) return (list.textContent = `Error: ${error.message}`);
+      if (!data.length) return (list.textContent = 'No R&D runs stored yet.');
+      list.innerHTML = data
+        .map(
+          (r) => `
+          <div class="p-3 rounded-xl bg-[#0B0F10] border border-slate-800">
+            <div class="flex justify-between text-[#2DD4BF] mb-1">
+              <span>${r.run_label}</span>
+              <span>${r.source_type} · ${r.event_count} events</span>
+            </div>
+            <pre class="text-[11px] text-slate-400 overflow-x-auto">${JSON.stringify(r.summary)}</pre>
+          </div>`
+        )
+        .join('');
+    });
+
+    syncAuthUI();
+    updateStylusUI();
+  </script>
+</body>
+</html>
