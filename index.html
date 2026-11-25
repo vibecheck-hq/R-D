@@ -12,18 +12,18 @@
       --bg-mesh-1: rgba(45, 212, 191, 0.18);
       --bg-mesh-2: rgba(13, 148, 136, 0.11);
       --bg-mesh-3: rgba(246, 241, 230, 0.55);
-      --glass-surface: rgba(255, 255, 255, 0.72);
-      --glass-strong: rgba(252, 251, 247, 0.94);
+      --glass-surface: rgba(255, 255, 255, 0.74);
+      --glass-strong: rgba(252, 251, 247, 0.95);
       --glass-border: rgba(13, 148, 136, 0.16);
       --glass-shadow: 0 14px 38px rgba(15, 23, 42, 0.06), 0 2px 10px rgba(13, 148, 136, 0.05);
 
-      /* Luxury 120 GSM Cotton Stationery Paper */
+      /* Luxury 120 GSM Archival Cotton Stationery */
       --paper-top: #FCFBF7;
       --paper-bottom: #F5F0E4;
       --paper-edge: #E6DFCE;
       --paper-stack-1: #EFEADF;
       --paper-stack-2: #E5DFD0;
-      --paper-header-bg: rgba(244, 239, 227, 0.58);
+      --paper-header-bg: rgba(244, 239, 227, 0.62);
       --paper-rule: rgba(71, 108, 128, 0.14);
       --margin-red-1: rgba(208, 69, 69, 0.42);
       --margin-red-2: rgba(208, 69, 69, 0.22);
@@ -37,12 +37,12 @@
       --accent-teal: #0D9488;
       --accent-mint: #2DD4BF;
       --accent-soft: rgba(13, 148, 136, 0.10);
-      --chip-bg: rgba(240, 247, 246, 0.90);
+      --chip-bg: rgba(240, 247, 246, 0.92);
       --warn-amber: #B45309;
       --warn-bg: rgba(245, 158, 11, 0.13);
       --danger-red: #DC2626;
       --danger-bg: rgba(239, 68, 68, 0.10);
-      --dock-bg: rgba(255, 255, 255, 0.86);
+      --dock-bg: rgba(255, 255, 255, 0.88);
     }
 
     [data-theme="obsidian"] {
@@ -51,11 +51,10 @@
       --bg-mesh-2: rgba(13, 148, 136, 0.10);
       --bg-mesh-3: rgba(15, 23, 42, 0.85);
       --glass-surface: rgba(15, 23, 42, 0.72);
-      --glass-strong: rgba(15, 23, 42, 0.92);
+      --glass-strong: rgba(15, 23, 42, 0.94);
       --glass-border: rgba(45, 212, 191, 0.18);
       --glass-shadow: 0 16px 42px rgba(0, 0, 0, 0.48);
 
-      /* Dark Architectural Vellum */
       --paper-top: #111A2B;
       --paper-bottom: #0B1220;
       --paper-edge: rgba(45, 212, 191, 0.22);
@@ -124,9 +123,20 @@
       border: 1px solid var(--glass-border);
     }
 
-    /* --------------------------------------------------------------------
-       HIGH-QUALITY 120 GSM ARCHIVAL COTTON STATIONERY SHEET
-       -------------------------------------------------------------------- */
+    .sender-pill {
+      background: var(--chip-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--ink-secondary);
+      transition: all 0.16s ease;
+    }
+
+    .sender-pill.active {
+      background: var(--accent-teal);
+      border-color: var(--accent-teal);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(13, 148, 136, 0.26);
+    }
+
     .stationery-pad {
       position: relative;
       border-radius: 14px 14px 16px 16px;
@@ -144,7 +154,6 @@
       transition: all 0.22s ease;
     }
 
-    /* Tactile cotton-fiber grain overlay (inline SVG turbulence) */
     .stationery-pad::after {
       content: "";
       position: absolute;
@@ -180,7 +189,6 @@
       background-position: 0 14px;
     }
 
-    /* Classic double crimson margin rule */
     .stationery-ruled-body::before {
       content: "";
       position: absolute;
@@ -225,7 +233,7 @@
     .ink-canvas {
       display: block;
       width: 100%;
-      height: clamp(440px, 60vh, 720px);
+      height: clamp(380px, 50vh, 620px);
       touch-action: none;
       cursor: crosshair;
       position: relative;
@@ -234,7 +242,7 @@
     }
 
     .ink-canvas.expanded {
-      height: 76vh;
+      height: 74vh;
     }
 
     .btn-primary {
@@ -255,7 +263,7 @@
     }
 
     .btn-primary:disabled {
-      opacity: 0.6;
+      opacity: 0.55;
       cursor: not-allowed;
       transform: none;
     }
@@ -281,7 +289,7 @@
 
     .dock-btn {
       border-radius: 999px;
-      padding: 9px 16px;
+      padding: 9px 15px;
       font-size: 13px;
       font-weight: 600;
       color: var(--ink-secondary);
@@ -298,7 +306,6 @@
       box-shadow: 0 4px 12px rgba(13, 148, 136, 0.28);
     }
 
-    /* Slide-up Diagnostics Drawer */
     .drawer-backdrop {
       position: fixed;
       inset: 0;
@@ -379,7 +386,7 @@
             <h1 class="text-sm sm:text-base font-bold tracking-tight truncate">VibeCheck R&amp;D Studio</h1>
             <span class="mono-num text-[10px] font-semibold px-2 py-0.5 rounded-full"
                   style="background: var(--accent-soft); color: var(--accent-teal);">
-              CLEPM · BAYESIAN GATE
+              CLEPM · BAYESIAN GATE v2.0
             </span>
           </div>
           <p class="mono-num text-[11px] truncate" style="color: var(--ink-muted);">
@@ -404,7 +411,7 @@
     </div>
   </header>
 
-  <!-- MAIN WORKSPACE (WIDE TABLET STUDIO) -->
+  <!-- MAIN WORKSPACE -->
   <main class="max-w-5xl mx-auto px-3 sm:px-5 pt-1.5 space-y-5">
 
     <!-- MODE 1: FULL-HEIGHT ARCHIVAL STATIONERY CALIBRATOR -->
@@ -412,20 +419,15 @@
       <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h2 class="text-sm font-bold tracking-tight">Capture Studio · Single Message Calibrator</h2>
+            <h2 class="text-sm font-bold tracking-tight">Capture Studio · Universal Syntax Calibrator</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
-              Locks deterministic syntax first, then runs live Gemini subtext &amp; caps uncoupled guesses.
+              Paste or type any message to lock deterministic syntax first, then calibrate subtext &amp; coupling ceilings.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-1.5">
-            <button id="loadTomBtn"
-                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
-                    style="color: var(--accent-teal);">
-              Load Tom (BS7)
-            </button>
             <button id="pasteBtn"
                     class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
-                    style="color: var(--ink-secondary);">
+                    style="color: var(--accent-teal);">
               Paste
             </button>
             <button id="expandTextBtn"
@@ -454,20 +456,24 @@
           <div class="stationery-ruled-body">
             <textarea id="messageInput"
                       class="paper-textarea"
-                      placeholder="Write or paste a WhatsApp message, email, or lead enquiry onto the archival sheet..."></textarea>
+                      placeholder="Write or paste any message, transcript, or email onto the archival sheet..."></textarea>
           </div>
         </div>
 
-        <!-- Action & Options Bar -->
+        <!-- Action & Multimodal Fusion Bar -->
         <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
           <div class="flex flex-wrap items-center gap-3 text-xs" style="color: var(--ink-secondary);">
             <label class="flex items-center gap-1.5 cursor-pointer select-none">
               <input id="runLlmToggle" type="checkbox" checked class="accent-teal-600 w-4 h-4 rounded" />
-              <span>Run Stage 2 Gemini + Gate</span>
+              <span>Stage 2 Gemini + Gate</span>
             </label>
             <label class="flex items-center gap-1.5 cursor-pointer select-none">
               <input id="attachInkToggle" type="checkbox" class="accent-teal-600 w-4 h-4 rounded" />
-              <span>Fuse S-Pen Ink (<span id="inkBadgeCount" class="mono-num">0</span> strokes)</span>
+              <span>Fuse S-Pen (<span id="inkBadgeCount" class="mono-num">0</span>)</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer select-none">
+              <input id="attachPhotoToggle" type="checkbox" class="accent-teal-600 w-4 h-4 rounded" />
+              <span>Fuse Photo (<span id="photoBadgeStatus" class="mono-num">none</span>)</span>
             </label>
           </div>
 
@@ -478,72 +484,173 @@
       </div>
     </section>
 
-    <!-- MODE 2: MULTI-CHAT WHATSAPP STREAM MERGER -->
+    <!-- MODE 2: MULTI-CHAT WHATSAPP STREAM (SENDER PILLS + NON-DESTRUCTIVE VALIDATION + WINDOW ALIGNMENT) -->
     <section id="panelStream" class="hidden space-y-4">
       <div class="glass-card p-4 sm:p-5 space-y-4">
-        <div>
-          <h2 class="text-sm font-bold tracking-tight">Chronological WhatsApp Stream</h2>
-          <p class="text-xs" style="color: var(--ink-muted);">
-            Unlocks Kim–Jo burstiness (<span class="mono-num">n ≥ 2</span> gaps), cross-chat jumps, and 24h circadian correlation (<span class="mono-num">n ≥ 10</span>).
-          </p>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-bold tracking-tight">Chronological WhatsApp Stream</h2>
+            <p class="text-xs" style="color: var(--ink-muted);">
+              Non-destructive multi-file ingestion with sender pills and 1:1 aligned temporal windows.
+            </p>
+          </div>
+          <button id="clearAllWaBtn"
+                  class="hidden glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
+                  style="color: var(--danger-red);">
+            Clear All Chats
+          </button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="glass-pill rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2"
+        <!-- Upload Zone & Window Selector -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <label class="sm:col-span-2 glass-pill rounded-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2 hover:opacity-95"
                  style="border-color: var(--glass-border);">
-            <span class="text-sm font-semibold" style="color: var(--accent-teal);">Select WhatsApp .txt Export(s)</span>
-            <span class="text-xs mt-1" style="color: var(--ink-muted);">Supports multiple threads merged chronologically</span>
-            <input id="waFileInput" type="file" accept=".txt" multiple class="hidden" />
+            <span class="text-sm font-semibold" style="color: var(--accent-teal);">+ Add WhatsApp .txt Export(s)</span>
+            <span class="text-xs mt-1" style="color: var(--ink-muted);">
+              Adding or testing invalid files never wipes already loaded valid chats
+            </span>
+            <input id="waFileInput" type="file" accept=".txt,text/plain" multiple class="hidden" />
           </label>
 
-          <div class="glass-pill rounded-2xl p-5 space-y-2.5">
+          <div class="glass-pill rounded-2xl p-4 flex flex-col justify-between space-y-2">
             <label class="block text-xs font-semibold" style="color: var(--ink-secondary);">
-              Target Sender Filter (blank = all senders)
+              Aligned Stream Window
             </label>
-            <input id="senderFilterInput"
-                   type="text"
-                   placeholder="e.g. Rob or Tom"
-                   class="w-full px-3.5 py-2.5 rounded-xl text-sm outline-none"
-                   style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);" />
-            <div id="streamFileSummary" class="mono-num text-[11px]" style="color: var(--ink-muted);">
-              No files loaded yet.
+            <select id="windowLimitSelect"
+                    class="w-full px-3 py-2 rounded-xl text-xs mono-num outline-none"
+                    style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);">
+              <option value="100">Last 100 messages</option>
+              <option value="250">Last 250 messages</option>
+              <option value="400" selected>Last 400 messages</option>
+              <option value="1000">Full window (≤ 1000)</option>
+            </select>
+            <div id="windowSpanLabel" class="mono-num text-[10px]" style="color: var(--ink-muted);">
+              Window span: —
             </div>
           </div>
         </div>
 
+        <!-- Non-Destructive File Validation Feed -->
+        <div id="waValidationAlerts" class="hidden space-y-1.5"></div>
+        <div id="waLoadedFilesBar" class="hidden flex flex-wrap gap-1.5"></div>
+
+        <!-- Dynamic Sender Pills -->
+        <div id="senderPillsCard" class="hidden glass-pill rounded-2xl p-4 space-y-2.5">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs font-semibold" style="color: var(--ink-secondary);">
+              Detected Senders (Tap to Filter Aligned Window)
+            </span>
+            <input id="senderSearchInput"
+                   type="text"
+                   placeholder="Filter pills..."
+                   class="px-2.5 py-1 rounded-full text-xs outline-none w-36 sm:w-44"
+                   style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);" />
+          </div>
+          <div id="senderPillsList" class="flex flex-wrap gap-1.5"></div>
+        </div>
+
+        <!-- 1:1 Aligned Window Preview KPIs -->
         <div id="streamPreviewGrid" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Substantive Msgs</div>
+            <div class="text-[11px]" style="color: var(--ink-muted);">Aligned Window Msgs</div>
             <div id="spMsgs" class="mono-num text-lg font-bold">0</div>
+            <div id="spTotalSub" class="mono-num text-[10px]" style="color: var(--ink-muted);">of 0 filtered</div>
           </div>
           <div class="glass-pill rounded-2xl p-3">
             <div class="text-[11px]" style="color: var(--ink-muted);">Chat Threads</div>
             <div id="spThreads" class="mono-num text-lg font-bold">0</div>
+            <div id="spSenderSub" class="mono-num text-[10px] truncate" style="color: var(--ink-muted);">All senders</div>
           </div>
           <div class="glass-pill rounded-2xl p-3">
             <div class="text-[11px]" style="color: var(--ink-muted);">Cross-Chat Jumps</div>
             <div id="spJumps" class="mono-num text-lg font-bold">0</div>
+            <div id="spGapsSub" class="mono-num text-[10px]" style="color: var(--ink-muted);">0 intervals</div>
           </div>
           <div class="glass-pill rounded-2xl p-3">
             <div class="text-[11px]" style="color: var(--ink-muted);">Kim-Jo Burstiness</div>
             <div id="spBurst" class="mono-num text-lg font-bold">—</div>
+            <div id="spCycleSub" class="mono-num text-[10px]" style="color: var(--ink-muted);">24h cycle locked</div>
           </div>
         </div>
 
         <div class="flex justify-end">
           <button id="runStreamBtn" class="btn-primary px-6 py-2.5 rounded-full text-sm" disabled>
-            Calibrate Chronological Stream
+            Calibrate Aligned Stream
           </button>
         </div>
       </div>
     </section>
 
-    <!-- MODE 3: FULL-HEIGHT S-PEN INK STATIONERY STUDIO -->
+    <!-- MODE 3: S-PEN INK & HANDWRITING PHOTO UPLOAD STUDIO -->
     <section id="panelInk" class="hidden space-y-4">
+      <!-- Handwriting Photo Upload Card -->
+      <div class="glass-card p-4 sm:p-5 space-y-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-bold tracking-tight">Handwriting Photo Upload · Multimodal Vision</h2>
+            <p class="text-xs" style="color: var(--ink-muted);">
+              Upload a photo of handwritten notes for Gemini Vision transcription, observable stroke anchors &amp; Bayesian-capped traits.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <label class="btn-primary px-4 py-2 rounded-full text-xs cursor-pointer">
+              Upload / Take Photo
+              <input id="photoFileInput" type="file" accept="image/*" class="hidden" />
+            </label>
+            <button id="removePhotoBtn"
+                    class="hidden glass-pill px-3 py-2 rounded-full text-xs font-semibold"
+                    style="color: var(--danger-red);">
+              Remove Photo
+            </button>
+          </div>
+        </div>
+
+        <div id="photoValidationAlert" class="hidden text-xs p-3 rounded-xl mono-num"
+             style="background: var(--warn-bg); color: var(--warn-amber);"></div>
+
+        <div id="photoPreviewShell" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-3 items-start">
+          <div class="stationery-pad p-2">
+            <img id="photoPreviewImg" alt="Uploaded handwriting preview"
+                 class="w-full max-h-56 object-contain rounded-lg" />
+          </div>
+          <div class="sm:col-span-2 space-y-2.5">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div class="glass-pill rounded-xl p-2.5">
+                <div class="text-[10px]" style="color: var(--ink-muted);">Dimensions</div>
+                <div id="photoDimVal" class="mono-num text-xs font-bold mt-0.5">—</div>
+              </div>
+              <div class="glass-pill rounded-xl p-2.5">
+                <div class="text-[10px]" style="color: var(--ink-muted);">Compressed Size</div>
+                <div id="photoSizeVal" class="mono-num text-xs font-bold mt-0.5">—</div>
+              </div>
+              <div class="glass-pill rounded-xl p-2.5">
+                <div class="text-[10px]" style="color: var(--ink-muted);">Ink Coverage</div>
+                <div id="photoInkCovVal" class="mono-num text-xs font-bold mt-0.5">—</div>
+              </div>
+              <div class="glass-pill rounded-xl p-2.5">
+                <div class="text-[10px]" style="color: var(--ink-muted);">Row Rhythm Var.</div>
+                <div id="photoRowVarVal" class="mono-num text-xs font-bold mt-0.5">—</div>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="runHandwritingNowBtn" class="btn-primary px-5 py-2 rounded-full text-xs">
+                Calibrate Handwriting Photo Now
+              </button>
+              <button id="fusePhotoAndSwitchBtn"
+                      class="glass-pill px-4 py-2 rounded-full text-xs font-semibold"
+                      style="color: var(--accent-teal);">
+                Fuse with Text Sheet
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live S-Pen Ink Pad -->
       <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h2 class="text-sm font-bold tracking-tight">S-Pen Ink Studio · Kinematic Telemetry</h2>
+            <h2 class="text-sm font-bold tracking-tight">S-Pen Ink Surface · Kinematic Telemetry</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
               DPR-corrected fountain ink, pressure variance, and left-hand 15.5° tilt zero-offset. Strokes persist across tabs.
             </p>
@@ -605,7 +712,7 @@
 
         <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
           <span class="text-xs" style="color: var(--ink-muted);">
-            Your strokes stay saved on the sheet when you switch back to the Calibrator.
+            Your strokes stay saved when you switch tabs.
           </span>
           <button id="fuseAndSwitchBtn" class="btn-primary px-5 py-2.5 rounded-full text-xs">
             Attach Ink &amp; Open Calibrator
@@ -622,7 +729,7 @@
     <!-- LIVE RESULTS STACK (3-TIER ARCHITECTURE) -->
     <section id="resultsSection" class="hidden space-y-4">
 
-      <!-- Executive Read & Optional Reply -->
+      <!-- Executive Read, Handwriting Transcription & Optional Reply -->
       <div class="glass-card p-5 space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2">
@@ -638,6 +745,29 @@
 
         <div id="llmDiagHint" class="hidden text-xs p-3 rounded-xl mono-num"
              style="background: var(--warn-bg); color: var(--warn-amber);"></div>
+
+        <!-- Handwriting Transcription Box (Shown When Photo Transcribed) -->
+        <div id="transcriptionBox" class="hidden pt-3 border-t" style="border-color: var(--glass-border);">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+            <span class="text-xs font-semibold" style="color: var(--accent-teal);">
+              Vision Handwriting Transcription
+            </span>
+            <div class="flex items-center gap-1.5">
+              <button id="sendTranscriptionToSheetBtn"
+                      class="glass-pill px-2.5 py-1 rounded-full text-[11px] font-semibold"
+                      style="color: var(--accent-teal);">
+                Send to Text Sheet
+              </button>
+              <button id="copyTranscriptionBtn"
+                      class="glass-pill px-2.5 py-1 rounded-full text-[11px] font-semibold"
+                      style="color: var(--ink-secondary);">
+                Copy
+              </button>
+            </div>
+          </div>
+          <p id="transcriptionText" class="serif-prose text-sm leading-relaxed p-3 rounded-xl whitespace-pre-wrap"
+             style="background: var(--chip-bg); color: var(--ink-primary);"></p>
+        </div>
 
         <div id="suggestedReplyBox" class="hidden pt-3 border-t" style="border-color: var(--glass-border);">
           <div class="flex items-center justify-between gap-2 mb-1.5">
@@ -707,7 +837,7 @@
             <h3 class="text-sm font-bold">Weakly Coupled &amp; Uncoupled Hypotheses</h3>
           </div>
           <p class="text-xs mt-0.5" style="color: var(--ink-muted);">
-            Hard mathematical ceilings prevent weak personality or demographic guesses from posing as verified fact.
+            Hard mathematical ceilings prevent weak personality, graphology, or demographic guesses from posing as fact.
           </p>
         </div>
 
@@ -720,7 +850,7 @@
   <nav class="dock-bar" aria-label="Studio Modes">
     <button class="dock-btn active" data-mode="single"><span>Calibrator</span></button>
     <button class="dock-btn" data-mode="stream"><span>WhatsApp</span></button>
-    <button class="dock-btn" data-mode="ink"><span>S-Pen Ink</span></button>
+    <button class="dock-btn" data-mode="ink"><span>Ink &amp; Photo</span></button>
     <button class="dock-btn" id="dockDrawerBtn" title="Open Diagnostics Drawer"><span>JSON</span></button>
   </nav>
 
@@ -819,23 +949,15 @@
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubm5udmxpc3NkcWR3bWtncmFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MjY5MjcsImV4cCI6MjEwMzAwMjkyN30.LesQ_v4RJD5Gc4zOxociV8wl-fbSXnIerahwenYGv4k";
 
-    const TOM_SAMPLE_TEXT = `Hi Rob, it’s Tom (from BS7)! Hope you’re well!
-
-I’m looking to get a couple of jobs done in the garden and wondered if you’d be able to help:
-
-1. Ivy removal – removing all the ivy from two boundary hedges, including the roots where possible (see photos).
-2. Decking replacement – I’ve removed the old decking boards, but the raised timber subframe/supports are still in place and seem fine. Would you be able to supply, cut to size and fit new decking boards onto the existing frame? (See photos.)
-
-No worries if decking isn’t something you do – I’d still be keen to get the ivy sorted!
-
-Ideally I’d like to get everything done before Christmas, so let me know if that’s realistic with your availability.
-
-I’m around this Wed/Thu if you’d like to pop round to take a look and quote, or alternatively sometime from w/c 7th December, as I’m away next week.
-
-Cheers, Tom`;
-
     let lastResponseJson = null;
-    let parsedStreamMessages = [];
+
+    // Non-destructive WhatsApp file store: Map<fileName, { fileName, chatLabel, messages[] }>
+    const waFileStore = new Map();
+    let activeSender = ""; // "" = All Senders
+    let alignedStreamWindow = [];
+
+    // Non-destructive Handwriting Photo store
+    let loadedHandwritingPhoto = null;
 
     // -----------------------------------------------------------------------
     // 2. THEME, SHEET EXPANSION & NAVIGATION CONTROLS
@@ -867,7 +989,6 @@ Cheers, Tom`;
       btn.addEventListener("click", () => switchMode(btn.dataset.mode));
     });
 
-    // Diagnostics Drawer
     const drawerBackdrop = document.getElementById("drawerBackdrop");
     const drawerSheet = document.getElementById("drawerSheet");
     function setDrawer(open) {
@@ -885,7 +1006,6 @@ Cheers, Tom`;
       document.getElementById("drawerFnLabel").textContent = endpointSelect.value;
     });
 
-    // Device-only Gemini Key override (optional fallback if testing a new key)
     const localKeyInput = document.getElementById("localGeminiKeyInput");
     localKeyInput.value = localStorage.getItem("vc_rd_gemini_override") || "";
     document.getElementById("saveLocalKeyBtn").addEventListener("click", () => {
@@ -897,7 +1017,6 @@ Cheers, Tom`;
       setTimeout(() => (btn.textContent = "Save"), 1400);
     });
 
-    // Sheet Expansion + Live Word Counter
     const messageInput = document.getElementById("messageInput");
     const liveWordCounter = document.getElementById("liveWordCounter");
     function updateWordCounter() {
@@ -912,12 +1031,6 @@ Cheers, Tom`;
     document.getElementById("expandTextBtn").addEventListener("click", (e) => {
       const isExp = messageInput.classList.toggle("expanded");
       e.currentTarget.textContent = isExp ? "Compact Sheet" : "Expand Sheet";
-    });
-
-    document.getElementById("loadTomBtn").addEventListener("click", () => {
-      messageInput.value = TOM_SAMPLE_TEXT;
-      showError("");
-      updateWordCounter();
     });
 
     document.getElementById("clearTextBtn").addEventListener("click", () => {
@@ -940,20 +1053,72 @@ Cheers, Tom`;
     });
 
     // -----------------------------------------------------------------------
-    // 3. WHATSAPP MULTI-FILE PARSER (EMPIRICAL — ZERO LEGACY PHASE MATH)
+    // 3. WHATSAPP PARSER — NON-DESTRUCTIVE VALIDATION, SENDER PILLS & ALIGNED WINDOW
     // -----------------------------------------------------------------------
     const WA_LINE_RE =
-      /(?:\[(\d{1,2}\/\d{1,2}\/\d{2,4},\s*\d{1,2}:\d{2}(?::\d{2})?)\]\s+([^:\n]{1,50}?):\s*|(\d{1,2}\/\d{1,2}\/\d{2,4},\s*\d{1,2}:\d{2}(?::\d{2})?)\s*[-–]\s*([^:\n]{1,50}?):\s*)/g;
+      /(?:^|\n)[\u200e\u200f]*(?:\[(\d{1,2}\/\d{1,2}\/\d{2,4},\s*\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202f]?[ap]m)?)\]\s+([^:\n]{1,50}?):\s*|(\d{1,2}\/\d{1,2}\/\d{2,4},\s*\d{1,2}:\d{2}(?::\d{2})?(?:[\s\u202f]?[ap]m)?)\s*[-–]\s*([^:\n]{1,50}?):\s*)/gi;
+
+    const NON_TEXT_MARKERS = new Set([
+      "<media omitted>",
+      "image omitted",
+      "audio omitted",
+      "video omitted",
+      "sticker omitted",
+      "gif omitted",
+      "document omitted",
+      "video note omitted",
+      "this message was deleted",
+      "you deleted this message",
+      "missed voice call",
+      "missed video call",
+      "missed voice call, tap to call back",
+      "missed video call, tap to call back",
+      "call failed, try again",
+      "silenced video call, focus mode",
+      "silenced voice call, focus mode",
+      "null",
+    ]);
+    const CALL_LOG_RE =
+      /^(voice call|video call|missed (?:voice|video) call),?\s*(\d+\s*(sec|min)|ended|no answer|tap to call back)?$/i;
+    const SYSTEM_NOTICE_RE =
+      /(messages and calls are end-to-end encrypted|changed the subject|changed this group|created group|added you|left$|security code changed)/i;
+
+    function isSubstantiveClient(text) {
+      const s = (text || "").replace(/[\u200e\u200f]/g, "").trim();
+      if (!s) return false;
+      const low = s.toLowerCase();
+      if (NON_TEXT_MARKERS.has(low) || CALL_LOG_RE.test(low) || SYSTEM_NOTICE_RE.test(low)) {
+        return false;
+      }
+      return true;
+    }
 
     function parseWaDate(tsStr) {
-      const cleaned = tsStr.replace(/\s+/g, " ").trim();
-      const m = cleaned.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4}),\s*(\d{1,2}):(\d{2})(?::(\d{2}))?$/);
+      const cleaned = tsStr.replace(/[\u200e\u200f\u202f]/g, " ").replace(/\s+/g, " ").trim();
+      const m = cleaned.match(
+        /^(\d{1,2})\/(\d{1,2})\/(\d{2,4}),\s*(\d{1,2}):(\d{2})(?::(\d{2}))?(?:\s*([ap]m))?$/i,
+      );
       if (!m) return null;
-      let [, d, mo, y, h, mi, s] = m;
-      let yr = parseInt(y, 10);
-      if (yr < 100) yr += 2000;
+      let [, dStr, moStr, yStr, hStr, miStr, sStr, ampm] = m;
+      let day = parseInt(dStr, 10);
+      let month = parseInt(moStr, 10);
+      let year = parseInt(yStr, 10);
+      if (year < 100) year += 2000;
+
+      // Auto-correct US MM/DD exports if second field > 12
+      if (month > 12 && day <= 12) {
+        [day, month] = [month, day];
+      }
+
+      let hour = parseInt(hStr, 10);
+      if (ampm) {
+        const low = ampm.toLowerCase();
+        if (low === "pm" && hour < 12) hour += 12;
+        if (low === "am" && hour === 12) hour = 0;
+      }
+
       const dt = new Date(
-        Date.UTC(yr, parseInt(mo, 10) - 1, parseInt(d, 10), parseInt(h, 10), parseInt(mi, 10), parseInt(s || "0", 10)),
+        Date.UTC(year, month - 1, day, hour, parseInt(miStr, 10), parseInt(sStr || "0", 10)),
       );
       return Number.isNaN(dt.getTime()) ? null : dt.toISOString();
     }
@@ -972,73 +1137,415 @@ Cheers, Tom`;
       return Math.max(-1, Math.min(1, num / den));
     }
 
-    async function handleWaFiles(files) {
-      const rows = [];
-      for (const file of files) {
-        const raw = await file.text();
-        const chatLabel = file.name.replace(/^WhatsApp Chat with /i, "").replace(/\.txt$/i, "").trim();
-        const matches = [...raw.matchAll(WA_LINE_RE)];
-        for (let i = 0; i < matches.length; i++) {
-          const m = matches[i];
-          const tsRaw = (m[1] || m[3] || "").trim();
-          const sender = (m[2] || m[4] || "").trim();
-          const start = m.index + m[0].length;
-          const end = i + 1 < matches.length ? matches[i + 1].index : raw.length;
-          const text = raw.slice(start, end).trim();
-          const iso = parseWaDate(tsRaw);
-          if (iso && text) {
-            rows.push({ dt: iso, sender, text, chat: chatLabel });
-          }
-        }
-      }
-      rows.sort((a, b) => Date.parse(a.dt) - Date.parse(b.dt));
-      parsedStreamMessages = rows;
-      updateStreamPreview();
+    function escapeHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
     }
 
-    function updateStreamPreview() {
-      const senderFilter = document.getElementById("senderFilterInput").value.trim().toLowerCase();
-      const filtered = senderFilter
-        ? parsedStreamMessages.filter((r) => r.sender.toLowerCase() === senderFilter)
-        : parsedStreamMessages;
+    function showWaValidationNotes(notes) {
+      const box = document.getElementById("waValidationAlerts");
+      if (!notes.length) {
+        box.classList.add("hidden");
+        box.innerHTML = "";
+        return;
+      }
+      box.classList.remove("hidden");
+      box.innerHTML = notes
+        .map(
+          (n) => `
+          <div class="text-xs px-3 py-2 rounded-xl mono-num flex items-center justify-between gap-2"
+               style="background: var(--warn-bg); color: var(--warn-amber);">
+            <span>⚠ ${escapeHtml(n)}</span>
+          </div>`,
+        )
+        .join("");
+    }
 
-      const summaryEl = document.getElementById("streamFileSummary");
-      const gridEl = document.getElementById("streamPreviewGrid");
-      const runBtn = document.getElementById("runStreamBtn");
+    async function handleWaFiles(fileList) {
+      const notes = [];
+      for (const file of fileList) {
+        const isTxtName = /\.txt$/i.test(file.name);
+        const isTxtMime = !file.type || file.type === "text/plain";
+        if (!isTxtName && !isTxtMime) {
+          notes.push(`${file.name} skipped (not a .txt WhatsApp export; existing chats preserved).`);
+          continue;
+        }
+        if (file.size === 0) {
+          notes.push(`${file.name} skipped (empty file; existing chats preserved).`);
+          continue;
+        }
+        try {
+          const raw = (await file.text()).replace(/\r\n/g, "\n");
+          if (raw.includes("\u0000")) {
+            notes.push(`${file.name} skipped (binary content detected; existing chats preserved).`);
+            continue;
+          }
+          const chatLabel = file.name
+            .replace(/^WhatsApp Chat with /i, "")
+            .replace(/\.txt$/i, "")
+            .trim();
+          const matches = [...raw.matchAll(WA_LINE_RE)];
+          const rows = [];
+          for (let i = 0; i < matches.length; i++) {
+            const m = matches[i];
+            const tsRaw = (m[1] || m[3] || "").trim();
+            const sender = (m[2] || m[4] || "").replace(/[\u200e\u200f]/g, "").trim();
+            const start = m.index + m[0].length;
+            const end = i + 1 < matches.length ? matches[i + 1].index : raw.length;
+            const text = raw.slice(start, end).replace(/[\u200e\u200f]/g, "").trim();
+            const iso = parseWaDate(tsRaw);
+            if (iso && sender && isSubstantiveClient(text)) {
+              rows.push({ dt: iso, sender, text, chat: chatLabel });
+            }
+          }
+          if (rows.length === 0) {
+            notes.push(
+              `${file.name} skipped (0 substantive WhatsApp messages found; existing chats preserved).`,
+            );
+            continue;
+          }
+          waFileStore.set(file.name, { fileName: file.name, chatLabel, messages: rows });
+        } catch {
+          notes.push(`${file.name} could not be read — skipped safely.`);
+        }
+      }
+      showWaValidationNotes(notes);
+      rebuildStreamState();
+    }
 
-      if (parsedStreamMessages.length === 0) {
-        summaryEl.textContent = "No valid WhatsApp lines parsed.";
-        gridEl.classList.add("hidden");
-        runBtn.disabled = true;
+    function getAllMergedMessages() {
+      const all = [];
+      for (const entry of waFileStore.values()) {
+        all.push(...entry.messages);
+      }
+      all.sort((a, b) => Date.parse(a.dt) - Date.parse(b.dt));
+      return all;
+    }
+
+    function renderLoadedFileChips() {
+      const bar = document.getElementById("waLoadedFilesBar");
+      const clearBtn = document.getElementById("clearAllWaBtn");
+      if (waFileStore.size === 0) {
+        bar.classList.add("hidden");
+        bar.innerHTML = "";
+        clearBtn.classList.add("hidden");
+        return;
+      }
+      bar.classList.remove("hidden");
+      clearBtn.classList.remove("hidden");
+      bar.innerHTML = Array.from(waFileStore.values())
+        .map(
+          (f) => `
+          <span class="mono-num text-[11px] px-3 py-1 rounded-full glass-pill flex items-center gap-2">
+            <span style="color: #059669;">✓</span>
+            <span>${escapeHtml(f.chatLabel)} (${f.messages.length})</span>
+            <button type="button" data-remove-file="${escapeHtml(f.fileName)}"
+                    class="font-bold opacity-70 hover:opacity-100" style="color: var(--danger-red);">×</button>
+          </span>`,
+        )
+        .join("");
+
+      bar.querySelectorAll("button[data-remove-file]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          waFileStore.delete(btn.getAttribute("data-remove-file"));
+          rebuildStreamState();
+        });
+      });
+    }
+
+    function renderSenderPills(allMsgs) {
+      const card = document.getElementById("senderPillsCard");
+      const listEl = document.getElementById("senderPillsList");
+      if (allMsgs.length === 0) {
+        card.classList.add("hidden");
+        listEl.innerHTML = "";
+        activeSender = "";
         return;
       }
 
-      const threads = new Set(filtered.map((r) => r.chat));
+      const counts = new Map();
+      for (const m of allMsgs) {
+        counts.set(m.sender, (counts.get(m.sender) || 0) + 1);
+      }
+      // If previously selected sender was removed with a file, safely reset to All
+      if (activeSender && !counts.has(activeSender)) {
+        activeSender = "";
+      }
+
+      const query = document.getElementById("senderSearchInput").value.trim().toLowerCase();
+      const sortedSenders = Array.from(counts.entries())
+        .sort((a, b) => b[1] - a[1])
+        .filter(([name]) => !query || name.toLowerCase().includes(query));
+
+      card.classList.remove("hidden");
+      const pillsHtml = [
+        `<button type="button" data-sender="" class="sender-pill ${activeSender === "" ? "active" : ""} px-3 py-1.5 rounded-full text-xs font-semibold">
+          All Senders <span class="mono-num opacity-80">(${allMsgs.length})</span>
+        </button>`,
+        ...sortedSenders.map(
+          ([name, cnt]) => `
+          <button type="button" data-sender="${escapeHtml(name)}"
+                  class="sender-pill ${activeSender === name ? "active" : ""} px-3 py-1.5 rounded-full text-xs font-semibold">
+            ${escapeHtml(name)} <span class="mono-num opacity-80">(${cnt})</span>
+          </button>`,
+        ),
+      ].join("");
+
+      listEl.innerHTML = pillsHtml;
+      listEl.querySelectorAll("button[data-sender]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          activeSender = btn.getAttribute("data-sender") || "";
+          rebuildStreamState();
+        });
+      });
+    }
+
+    function rebuildStreamState() {
+      renderLoadedFileChips();
+      const allMsgs = getAllMergedMessages();
+      renderSenderPills(allMsgs);
+
+      const gridEl = document.getElementById("streamPreviewGrid");
+      const runBtn = document.getElementById("runStreamBtn");
+      const spanEl = document.getElementById("windowSpanLabel");
+
+      if (allMsgs.length === 0) {
+        alignedStreamWindow = [];
+        gridEl.classList.add("hidden");
+        runBtn.disabled = true;
+        spanEl.textContent = "Window span: —";
+        return;
+      }
+
+      const filtered = activeSender
+        ? allMsgs.filter((m) => m.sender === activeSender)
+        : allMsgs;
+
+      const limit = parseInt(document.getElementById("windowLimitSelect").value, 10) || 400;
+      alignedStreamWindow = filtered.slice(-limit);
+
+      const threads = new Set(alignedStreamWindow.map((r) => r.chat));
       let jumps = 0;
       const gaps = [];
-      for (let i = 1; i < filtered.length; i++) {
-        const g = (Date.parse(filtered[i].dt) - Date.parse(filtered[i - 1].dt)) / 60000;
+      for (let i = 1; i < alignedStreamWindow.length; i++) {
+        const g =
+          (Date.parse(alignedStreamWindow[i].dt) - Date.parse(alignedStreamWindow[i - 1].dt)) /
+          60000;
         if (g > 0) gaps.push(g);
-        if (filtered[i].chat !== filtered[i - 1].chat) jumps++;
+        if (alignedStreamWindow[i].chat !== alignedStreamWindow[i - 1].chat) jumps++;
       }
       const bn = localKimJo(gaps);
 
-      summaryEl.textContent = `Loaded ${parsedStreamMessages.length} total messages (${filtered.length} matching filter).`;
-      document.getElementById("spMsgs").textContent = String(filtered.length);
+      if (alignedStreamWindow.length > 0) {
+        const startStr = alignedStreamWindow[0].dt.slice(0, 10);
+        const endStr = alignedStreamWindow[alignedStreamWindow.length - 1].dt.slice(0, 10);
+        spanEl.textContent = `Aligned: ${startStr} → ${endStr}`;
+      } else {
+        spanEl.textContent = "Window span: —";
+      }
+
+      document.getElementById("spMsgs").textContent = String(alignedStreamWindow.length);
+      document.getElementById("spTotalSub").textContent = `of ${filtered.length} filtered`;
       document.getElementById("spThreads").textContent = String(threads.size);
+      document.getElementById("spSenderSub").textContent = activeSender || "All senders";
       document.getElementById("spJumps").textContent = String(jumps);
+      document.getElementById("spGapsSub").textContent = `${gaps.length} intervals`;
       document.getElementById("spBurst").textContent = bn === null ? "Locked" : bn.toFixed(3);
+      document.getElementById("spCycleSub").textContent =
+        alignedStreamWindow.length >= 10 ? "24h cycle unlocked" : "24h cycle locked (n<10)";
+
       gridEl.classList.remove("hidden");
-      runBtn.disabled = filtered.length === 0;
+      runBtn.disabled = alignedStreamWindow.length === 0;
     }
 
-    document.getElementById("waFileInput").addEventListener("change", (e) => {
-      if (e.target.files && e.target.files.length > 0) handleWaFiles(e.target.files);
+    const waFileInput = document.getElementById("waFileInput");
+    waFileInput.addEventListener("change", async (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        await handleWaFiles(e.target.files);
+      }
+      waFileInput.value = "";
     });
-    document.getElementById("senderFilterInput").addEventListener("input", updateStreamPreview);
+
+    document.getElementById("senderSearchInput").addEventListener("input", () => {
+      renderSenderPills(getAllMergedMessages());
+    });
+    document.getElementById("windowLimitSelect").addEventListener("change", rebuildStreamState);
+    document.getElementById("clearAllWaBtn").addEventListener("click", () => {
+      waFileStore.clear();
+      activeSender = "";
+      showWaValidationNotes([]);
+      rebuildStreamState();
+    });
 
     // -----------------------------------------------------------------------
-    // 4. S-PEN INK TELEMETRY STUDIO (PERSISTENT VECTOR STROKES + 15.5° OFFSET)
+    // 4. HANDWRITING PHOTO UPLOAD (NON-DESTRUCTIVE + DETERMINISTIC INK METRICS)
+    // -----------------------------------------------------------------------
+    function setPhotoAlert(msg) {
+      const el = document.getElementById("photoValidationAlert");
+      if (!msg) {
+        el.classList.add("hidden");
+        el.textContent = "";
+      } else {
+        el.textContent = `⚠ ${msg}`;
+        el.classList.remove("hidden");
+      }
+    }
+
+    function updatePhotoUI() {
+      const shell = document.getElementById("photoPreviewShell");
+      const removeBtn = document.getElementById("removePhotoBtn");
+      const badge = document.getElementById("photoBadgeStatus");
+
+      if (!loadedHandwritingPhoto) {
+        shell.classList.add("hidden");
+        removeBtn.classList.add("hidden");
+        badge.textContent = "none";
+        document.getElementById("attachPhotoToggle").checked = false;
+        return;
+      }
+
+      const p = loadedHandwritingPhoto;
+      document.getElementById("photoPreviewImg").src = `data:${p.mimeType};base64,${p.base64}`;
+      document.getElementById("photoDimVal").textContent = `${p.width}×${p.height}`;
+      document.getElementById("photoSizeVal").textContent = `${p.sizeKb} KB`;
+      document.getElementById("photoInkCovVal").textContent = `${(p.inkCoverageRatio * 100).toFixed(1)}%`;
+      document.getElementById("photoRowVarVal").textContent = p.horizontalDensityVariance.toFixed(4);
+      shell.classList.remove("hidden");
+      removeBtn.classList.remove("hidden");
+      badge.textContent = `${p.sizeKb}KB`;
+    }
+
+    async function processHandwritingPhoto(file) {
+      setPhotoAlert("");
+      if (!file.type || !file.type.startsWith("image/")) {
+        setPhotoAlert(
+          `"${file.name}" is not a valid image file — skipped (existing photo preserved).`,
+        );
+        return;
+      }
+      if (file.size > 25 * 1024 * 1024) {
+        setPhotoAlert(
+          `"${file.name}" exceeds 25 MB raw limit — skipped (existing photo preserved).`,
+        );
+        return;
+      }
+
+      try {
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = () => reject(new Error("File read error"));
+          reader.readAsDataURL(file);
+        });
+
+        const img = await new Promise((resolve, reject) => {
+          const i = new Image();
+          i.onload = () => resolve(i);
+          i.onerror = () => reject(new Error("Could not decode image"));
+          i.src = dataUrl;
+        });
+
+        // Compress cleanly to max 1400px edge for fast mobile Edge Function upload
+        const maxEdge = 1400;
+        const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
+        const w = Math.max(1, Math.round(img.naturalWidth * scale));
+        const h = Math.max(1, Math.round(img.naturalHeight * scale));
+
+        const off = document.createElement("canvas");
+        off.width = w;
+        off.height = h;
+        const octx = off.getContext("2d", { willReadFrequently: true });
+        octx.fillStyle = "#FFFFFF";
+        octx.fillRect(0, 0, w, h);
+        octx.drawImage(img, 0, 0, w, h);
+
+        // Deterministic Tier 1 image metrics (ink coverage + horizontal line rhythm variance)
+        const sampleW = Math.min(240, w);
+        const sampleH = Math.max(1, Math.round((h / w) * sampleW));
+        const sCan = document.createElement("canvas");
+        sCan.width = sampleW;
+        sCan.height = sampleH;
+        const sctx = sCan.getContext("2d", { willReadFrequently: true });
+        sctx.drawImage(off, 0, 0, sampleW, sampleH);
+        const pix = sctx.getImageData(0, 0, sampleW, sampleH).data;
+
+        let lumSum = 0;
+        const totalPx = sampleW * sampleH;
+        const lums = new Float32Array(totalPx);
+        for (let idx = 0, p = 0; p < totalPx; p++, idx += 4) {
+          const lum = 0.299 * pix[idx] + 0.587 * pix[idx + 1] + 0.114 * pix[idx + 2];
+          lums[p] = lum;
+          lumSum += lum;
+        }
+        const meanLum = lumSum / totalPx;
+        const inkThresh = Math.min(180, meanLum * 0.78);
+
+        let darkPx = 0;
+        const rowDensities = [];
+        for (let y = 0; y < sampleH; y++) {
+          let rowDark = 0;
+          const rowStart = y * sampleW;
+          for (let x = 0; x < sampleW; x++) {
+            if (lums[rowStart + x] < inkThresh) {
+              darkPx++;
+              rowDark++;
+            }
+          }
+          rowDensities.push(rowDark / sampleW);
+        }
+        const inkCoverageRatio = Number((darkPx / totalPx).toFixed(4));
+        const meanRow = rowDensities.reduce((a, b) => a + b, 0) / rowDensities.length;
+        const rowVar =
+          rowDensities.reduce((acc, v) => acc + Math.pow(v - meanRow, 2), 0) /
+          Math.max(1, rowDensities.length - 1);
+
+        const jpegDataUrl = off.toDataURL("image/jpeg", 0.82);
+        const base64 = jpegDataUrl.replace(/^data:image\/jpeg;base64,/, "");
+        const sizeKb = Number(((base64.length * 0.75) / 1024).toFixed(1));
+
+        loadedHandwritingPhoto = {
+          mimeType: "image/jpeg",
+          base64,
+          width: w,
+          height: h,
+          sizeKb,
+          inkCoverageRatio,
+          horizontalDensityVariance: Number(rowVar.toFixed(5)),
+          filename: file.name,
+        };
+        document.getElementById("attachPhotoToggle").checked = true;
+        updatePhotoUI();
+      } catch (err) {
+        setPhotoAlert(
+          `Could not process "${file.name}" (${err.message}) — existing photo preserved.`,
+        );
+      }
+    }
+
+    const photoFileInput = document.getElementById("photoFileInput");
+    photoFileInput.addEventListener("change", async (e) => {
+      if (e.target.files && e.target.files[0]) {
+        await processHandwritingPhoto(e.target.files[0]);
+      }
+      photoFileInput.value = "";
+    });
+
+    document.getElementById("removePhotoBtn").addEventListener("click", () => {
+      loadedHandwritingPhoto = null;
+      setPhotoAlert("");
+      updatePhotoUI();
+    });
+
+    document.getElementById("fusePhotoAndSwitchBtn").addEventListener("click", () => {
+      if (loadedHandwritingPhoto) document.getElementById("attachPhotoToggle").checked = true;
+      switchMode("single");
+    });
+
+    // -----------------------------------------------------------------------
+    // 5. S-PEN INK STUDIO (PERSISTENT VECTOR STROKES + 15.5° LEFT-HAND OFFSET)
     // -----------------------------------------------------------------------
     const canvas = document.getElementById("inkCanvas");
     const ctx = canvas.getContext("2d");
@@ -1046,7 +1553,7 @@ Cheers, Tom`;
       drawing: false,
       strokes: 0,
       points: 0,
-      strokeHistory: [], // Array of strokes: [{x, y, w}, ...]
+      strokeHistory: [],
       currentStroke: null,
       velocities: [],
       pressures: [],
@@ -1230,7 +1737,7 @@ Cheers, Tom`;
     });
 
     // -----------------------------------------------------------------------
-    // 5. LIVE EDGE FUNCTION INVOCATION & 3-TIER RENDERING
+    // 6. LIVE EDGE FUNCTION INVOCATION & 3-TIER RENDERING
     // -----------------------------------------------------------------------
     function showError(msg) {
       const el = document.getElementById("errorBanner");
@@ -1273,14 +1780,6 @@ Cheers, Tom`;
       return { fnName, data };
     }
 
-    function escapeHtml(str) {
-      return String(str ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
     function renderResults(fnName, data) {
       lastResponseJson = data;
       document.getElementById("rawJsonOut").textContent = JSON.stringify(data, null, 2);
@@ -1298,21 +1797,38 @@ Cheers, Tom`;
       document.getElementById("executiveReadText").textContent = data.executive_read || "No synthesis returned.";
 
       const metaBadges = document.getElementById("metaBadges");
+      const senderBadge = data.meta?.sender
+        ? `<span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill">sender: ${escapeHtml(data.meta.sender)}</span>`
+        : "";
       metaBadges.innerHTML = `
         <span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill" style="color: ${isLiveLlm ? "#059669" : "var(--warn-amber)"};">
           ${escapeHtml(data.meta?.llm_model || "unknown")}
         </span>
         <span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill">
-          ${escapeHtml(data.meta?.mode || "single")} · n=${data.meta?.guards?.sample_n ?? 1}
+          ${escapeHtml(data.meta?.mode || "single")} · n=${data.meta?.guards?.sample_n ?? 0}
         </span>
+        ${senderBadge}
       `;
 
       const diagHint = document.getElementById("llmDiagHint");
+      const warningText = (data.meta?.warnings || []).join(" · ");
       if (!isLiveLlm && data.meta?.llm_status && data.meta.llm_status !== "llm_toggle_off") {
-        diagHint.textContent = `LLM Status: ${data.meta.llm_status} — Check GEMINI_API_KEY in Supabase Edge Function Secrets (or test via Diagnostics drawer).`;
+        diagHint.textContent = `LLM Status: ${data.meta.llm_status}${warningText ? " | " + warningText : ""}`;
+        diagHint.classList.remove("hidden");
+      } else if (warningText) {
+        diagHint.textContent = `Notice: ${warningText}`;
         diagHint.classList.remove("hidden");
       } else {
         diagHint.classList.add("hidden");
+      }
+
+      // Handwriting Transcription Box
+      const transBox = document.getElementById("transcriptionBox");
+      if (data.handwriting_transcription && data.handwriting_transcription.trim()) {
+        document.getElementById("transcriptionText").textContent = data.handwriting_transcription;
+        transBox.classList.remove("hidden");
+      } else {
+        transBox.classList.add("hidden");
       }
 
       const replyBox = document.getElementById("suggestedReplyBox");
@@ -1335,16 +1851,26 @@ Cheers, Tom`;
 
       const syn = data.tier1_verified_anchors?.syntax || {};
       const tmp = data.tier1_verified_anchors?.temporal || {};
+      const hw = data.tier1_verified_anchors?.handwriting_image || null;
+
       const kpis = [
         { label: "Word Count", val: syn.word_cnt, sub: syn.word_cnt !== syn.word_cnt_legacy_raw ? `Legacy raw: ${syn.word_cnt_legacy_raw}` : "Exact match" },
         { label: "Apostrophes", val: syn.apostrophe_cnt, sub: `Missing: ${syn.has_missing_apo}` },
-        { label: "Modals / Ifs", val: `${syn.modal_softener_cnt} / ${syn.conditional_if_cnt}`, sub: `Hedge flag: ${syn.has_hedge}` },
-        { label: "Urgency (Cal.)", val: syn.has_urgency, sub: syn.polite_help_filtered ? "Filtered 'help' FP" : `Legacy: ${syn.has_urgency_legacy}` },
+        { label: "Modals / Ifs", val: `${syn.modal_softener_cnt} / ${syn.conditional_if_cnt}`, sub: `Hedge: ${syn.has_hedge} · Friction: ${syn.has_friction}` },
+        { label: "Urgency (Cal.)", val: syn.has_urgency, sub: syn.polite_help_filtered ? "Filtered polite 'help'" : `Legacy: ${syn.has_urgency_legacy}` },
         { label: "Excl / Quest", val: `${syn.excl_cnt} / ${syn.quest_cnt}`, sub: `Lists: ${syn.numbered_list_cnt} · En-dash: ${syn.en_dash_cnt}` },
         { label: "1PS / 2P Ratio", val: `${(syn.ratio_1ps * 100).toFixed(1)}% / ${(syn.ratio_2p * 100).toFixed(1)}%`, sub: `TTR: ${syn.lexical_ttr}` },
         { label: "Divergence Idx", val: syn.mindpaper_divergence_idx, sub: `Legacy: ${syn.mindpaper_divergence_legacy}` },
-        { label: "Burstiness Bₙ", val: tmp.kim_jo_burstiness ?? "Locked", sub: `Jumps: ${tmp.cross_chat_jumps ?? 0}` },
+        { label: "Burstiness Bₙ", val: tmp.kim_jo_burstiness ?? "Locked", sub: `Jumps: ${tmp.cross_chat_jumps ?? 0} · 24h R: ${tmp.circular_24h_R ?? "Locked"}` },
       ];
+
+      if (hw && hw.present) {
+        kpis.push({
+          label: "Handwriting Photo",
+          val: `${hw.width}×${hw.height}`,
+          sub: `Ink: ${hw.ink_coverage_ratio !== null ? (hw.ink_coverage_ratio * 100).toFixed(1) + "%" : "—"} · ${hw.size_kb} KB`,
+        });
+      }
 
       document.getElementById("tier1Grid").innerHTML = kpis
         .map(
@@ -1358,9 +1884,11 @@ Cheers, Tom`;
         .join("");
 
       const matchChips = [
-        ...(syn.wa_header_stripped ? ["patch: WhatsApp timestamp prefix stripped"] : []),
+        ...(syn.wa_header_stripped ? ["patch: WhatsApp prefix stripped"] : []),
+        ...(tmp.window_start_dt ? [`window: ${tmp.window_start_dt.slice(0, 10)} → ${tmp.window_end_dt.slice(0, 10)} (${tmp.span_hours}h)`] : []),
         ...(syn.hedge_matches || []).map((m) => `hedge: "${m}"`),
         ...(syn.modal_matches || []).map((m) => `modal: "${m}"`),
+        ...(syn.friction_matches || []).map((m) => `friction: "${m}"`),
         ...(syn.polite_help_filtered ? ["patch: polite 'help' excluded from urgency"] : []),
       ];
       document.getElementById("tier1Matches").innerHTML = matchChips
@@ -1456,11 +1984,11 @@ Cheers, Tom`;
       const btn = document.getElementById("runSingleBtn");
       const label = document.getElementById("runSingleLabel");
       const text = messageInput.value.trim();
-      const attachInk = document.getElementById("attachInkToggle").checked;
-      const kinematics = attachInk ? getKinematicsPayload() : null;
+      const kinematics = document.getElementById("attachInkToggle").checked ? getKinematicsPayload() : null;
+      const handwritingImage = document.getElementById("attachPhotoToggle").checked ? loadedHandwritingPhoto : null;
 
-      if (!text && !kinematics) {
-        showError("Write on the sheet (or tap 'Load Tom (BS7)') before running.");
+      if (!text && !kinematics && !handwritingImage) {
+        showError("Write or paste a message on the sheet (or fuse S-Pen ink / a handwriting photo) before running.");
         return;
       }
 
@@ -1468,9 +1996,10 @@ Cheers, Tom`;
       label.textContent = "Calibrating via Supabase...";
       try {
         const { fnName, data } = await callEdgeFunction({
-          mode: "single",
+          mode: text ? "single" : handwritingImage ? "handwriting" : "kinematic",
           text,
           kinematics,
+          handwritingImage,
           runLlm: document.getElementById("runLlmToggle").checked,
         });
         renderResults(fnName, data);
@@ -1482,16 +2011,39 @@ Cheers, Tom`;
       }
     });
 
+    document.getElementById("runHandwritingNowBtn").addEventListener("click", async () => {
+      if (!loadedHandwritingPhoto) return;
+      const btn = document.getElementById("runHandwritingNowBtn");
+      btn.disabled = true;
+      btn.textContent = "Analyzing Handwriting Photo...";
+      try {
+        const { fnName, data } = await callEdgeFunction({
+          mode: "handwriting",
+          text: "",
+          kinematics: getKinematicsPayload(),
+          handwritingImage: loadedHandwritingPhoto,
+          runLlm: document.getElementById("runLlmToggle").checked,
+        });
+        renderResults(fnName, data);
+      } catch (err) {
+        showError(`Handwriting calibration failed: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Calibrate Handwriting Photo Now";
+      }
+    });
+
     document.getElementById("runStreamBtn").addEventListener("click", async () => {
       const btn = document.getElementById("runStreamBtn");
-      const sender = document.getElementById("senderFilterInput").value.trim();
+      const limit = parseInt(document.getElementById("windowLimitSelect").value, 10) || 400;
       btn.disabled = true;
-      btn.textContent = "Running Longitudinal Calibration...";
+      btn.textContent = "Running Aligned Stream Calibration...";
       try {
         const { fnName, data } = await callEdgeFunction({
           mode: "stream",
-          sender: sender || undefined,
-          messages: parsedStreamMessages.slice(-400),
+          sender: activeSender || undefined,
+          windowLimit: limit,
+          messages: alignedStreamWindow,
           runLlm: document.getElementById("runLlmToggle").checked,
         });
         renderResults(fnName, data);
@@ -1499,11 +2051,29 @@ Cheers, Tom`;
         showError(`Stream calibration failed: ${err.message}`);
       } finally {
         btn.disabled = false;
-        btn.textContent = "Calibrate Chronological Stream";
+        btn.textContent = "Calibrate Aligned Stream";
       }
     });
 
-    // Copy Helpers
+    // Transcription & Copy Helpers
+    document.getElementById("sendTranscriptionToSheetBtn").addEventListener("click", () => {
+      const txt = document.getElementById("transcriptionText").textContent;
+      if (!txt) return;
+      messageInput.value = txt;
+      updateWordCounter();
+      switchMode("single");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    document.getElementById("copyTranscriptionBtn").addEventListener("click", async () => {
+      const txt = document.getElementById("transcriptionText").textContent;
+      if (!txt) return;
+      await navigator.clipboard.writeText(txt);
+      const b = document.getElementById("copyTranscriptionBtn");
+      b.textContent = "Copied";
+      setTimeout(() => (b.textContent = "Copy"), 1400);
+    });
+
     document.getElementById("copyJsonBtn").addEventListener("click", async () => {
       if (!lastResponseJson) return;
       await navigator.clipboard.writeText(JSON.stringify(lastResponseJson, null, 2));
