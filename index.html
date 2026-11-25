@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0D9488" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="VibeCheck R&D" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230D9488'/%3E%3Cstop offset='1' stop-color='%232DD4BF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-weight='700' font-size='36' fill='white'%3EV%3C/text%3E%3C/svg%3E" />
   <title>VibeCheck R&amp;D · Archival Paper-Glass Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -12,8 +18,8 @@
       --bg-mesh-1: rgba(45, 212, 191, 0.18);
       --bg-mesh-2: rgba(13, 148, 136, 0.11);
       --bg-mesh-3: rgba(246, 241, 230, 0.55);
-      --glass-surface: rgba(255, 255, 255, 0.74);
-      --glass-strong: rgba(252, 251, 247, 0.95);
+      --glass-surface: rgba(255, 255, 255, 0.75);
+      --glass-strong: rgba(252, 251, 247, 0.96);
       --glass-border: rgba(13, 148, 136, 0.16);
       --glass-shadow: 0 14px 38px rgba(15, 23, 42, 0.06), 0 2px 10px rgba(13, 148, 136, 0.05);
 
@@ -233,8 +239,10 @@
     .ink-canvas {
       display: block;
       width: 100%;
-      height: clamp(380px, 50vh, 620px);
+      height: clamp(400px, 54vh, 660px);
       touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
       cursor: crosshair;
       position: relative;
       z-index: 3;
@@ -242,7 +250,7 @@
     }
 
     .ink-canvas.expanded {
-      height: 74vh;
+      height: 75vh;
     }
 
     .btn-primary {
@@ -266,6 +274,13 @@
       opacity: 0.55;
       cursor: not-allowed;
       transform: none;
+    }
+
+    .results-stale {
+      opacity: 0.45;
+      filter: saturate(0.65);
+      pointer-events: none;
+      transition: opacity 0.2s ease, filter 0.2s ease;
     }
 
     .dock-bar {
@@ -386,7 +401,7 @@
             <h1 class="text-sm sm:text-base font-bold tracking-tight truncate">VibeCheck R&amp;D Studio</h1>
             <span class="mono-num text-[10px] font-semibold px-2 py-0.5 rounded-full"
                   style="background: var(--accent-soft); color: var(--accent-teal);">
-              CLEPM · BAYESIAN GATE v2.0
+              CLEPM · BAYESIAN GATE v2.1
             </span>
           </div>
           <p class="mono-num text-[11px] truncate" style="color: var(--ink-muted);">
@@ -421,7 +436,7 @@
           <div>
             <h2 class="text-sm font-bold tracking-tight">Capture Studio · Universal Syntax Calibrator</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
-              Paste or type any message to lock deterministic syntax first, then calibrate subtext &amp; coupling ceilings.
+              Type or paste any message (multi-line WhatsApp headers auto-strip). For S-Pen handwriting, use the <strong>Ink &amp; Photo</strong> pad.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-1.5">
@@ -477,14 +492,16 @@
             </label>
           </div>
 
-          <button id="runSingleBtn" class="btn-primary px-6 py-2.5 rounded-full text-sm flex items-center gap-2">
-            <span id="runSingleLabel">Run 3-Tier Calibration</span>
-          </button>
+          <div class="flex items-center gap-2">
+            <button id="runSingleBtn" class="btn-primary px-6 py-2.5 rounded-full text-sm flex items-center gap-2">
+              <span id="runSingleLabel">Run 3-Tier Calibration</span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- MODE 2: MULTI-CHAT WHATSAPP STREAM (SENDER PILLS + NON-DESTRUCTIVE VALIDATION + WINDOW ALIGNMENT) -->
+    <!-- MODE 2: MULTI-CHAT WHATSAPP STREAM -->
     <section id="panelStream" class="hidden space-y-4">
       <div class="glass-card p-4 sm:p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
@@ -501,7 +518,6 @@
           </button>
         </div>
 
-        <!-- Upload Zone & Window Selector -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <label class="sm:col-span-2 glass-pill rounded-2xl p-5 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2 hover:opacity-95"
                  style="border-color: var(--glass-border);">
@@ -530,11 +546,9 @@
           </div>
         </div>
 
-        <!-- Non-Destructive File Validation Feed -->
         <div id="waValidationAlerts" class="hidden space-y-1.5"></div>
         <div id="waLoadedFilesBar" class="hidden flex flex-wrap gap-1.5"></div>
 
-        <!-- Dynamic Sender Pills -->
         <div id="senderPillsCard" class="hidden glass-pill rounded-2xl p-4 space-y-2.5">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-xs font-semibold" style="color: var(--ink-secondary);">
@@ -549,7 +563,6 @@
           <div id="senderPillsList" class="flex flex-wrap gap-1.5"></div>
         </div>
 
-        <!-- 1:1 Aligned Window Preview KPIs -->
         <div id="streamPreviewGrid" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           <div class="glass-pill rounded-2xl p-3">
             <div class="text-[11px]" style="color: var(--ink-muted);">Aligned Window Msgs</div>
@@ -581,15 +594,101 @@
       </div>
     </section>
 
-    <!-- MODE 3: S-PEN INK & HANDWRITING PHOTO UPLOAD STUDIO -->
+    <!-- MODE 3: S-PEN INK PAD (PALM REJECTION + CANVAS-TO-VISION) & PHOTO UPLOAD -->
     <section id="panelInk" class="hidden space-y-4">
+      <!-- Live S-Pen Ink Pad (Primary Writing Surface — No Samsung S-Pen-to-Text Vanishing) -->
+      <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-bold tracking-tight">S-Pen Archival Ink Pad · Palm-Rejected Studio</h2>
+            <p class="text-xs" style="color: var(--ink-muted);">
+              Write naturally in permanent ink with high-frequency <span class="mono-num">getCoalescedEvents()</span> capture. One tap transcribes &amp; calibrates both ink + kinematics.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-1.5">
+            <label class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                   title="Ignores accidental palm/wrist touch contacts while allowing S-Pen and mouse">
+              <input id="palmRejectToggle" type="checkbox" checked class="accent-teal-600" />
+              <span>Stylus-Only (Palm Reject)</span>
+            </label>
+            <label class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
+              <input id="leftHandOffset" type="checkbox" checked class="accent-teal-600" />
+              <span>15.5° Left-Hand</span>
+            </label>
+            <button id="expandInkBtn"
+                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
+                    style="color: var(--ink-secondary);">
+              Expand Pad
+            </button>
+            <button id="undoInkBtn"
+                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
+                    style="color: var(--ink-secondary);">
+              Undo
+            </button>
+            <button id="clearInkBtn"
+                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
+                    style="color: var(--danger-red);">
+              Clear
+            </button>
+          </div>
+        </div>
+
+        <div class="stationery-pad">
+          <div class="stationery-head">
+            <span class="mono-num text-[10px] tracking-[0.14em] uppercase font-semibold" style="color: var(--ink-muted);">
+              120 GSM ARCHIVAL COTTON · S-PEN INK SURFACE
+            </span>
+            <span id="inkHeaderStat" class="mono-num text-[11px]" style="color: var(--ink-muted);">
+              Palm rejection ON · Ready for S-Pen
+            </span>
+          </div>
+          <div class="stationery-ruled-body">
+            <canvas id="inkCanvas" class="ink-canvas"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+          <div class="glass-pill rounded-2xl p-3">
+            <div class="text-[11px]" style="color: var(--ink-muted);">Strokes</div>
+            <div id="inkStrokes" class="mono-num text-base font-bold">0</div>
+          </div>
+          <div class="glass-pill rounded-2xl p-3">
+            <div class="text-[11px]" style="color: var(--ink-muted);">Mean Velocity</div>
+            <div id="inkVel" class="mono-num text-base font-bold">0.00</div>
+          </div>
+          <div class="glass-pill rounded-2xl p-3">
+            <div class="text-[11px]" style="color: var(--ink-muted);">Mean Pressure</div>
+            <div id="inkPress" class="mono-num text-base font-bold">0.00</div>
+          </div>
+          <div class="glass-pill rounded-2xl p-3">
+            <div class="text-[11px]" style="color: var(--ink-muted);">Adj Tilt X</div>
+            <div id="inkTiltX" class="mono-num text-base font-bold">0.0°</div>
+          </div>
+          <div class="glass-pill rounded-2xl p-3">
+            <div class="text-[11px]" style="color: var(--ink-muted);">Tilt Y</div>
+            <div id="inkTiltY" class="mono-num text-base font-bold">0.0°</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <button id="fuseAndSwitchBtn"
+                  class="glass-pill px-4 py-2.5 rounded-full text-xs font-semibold"
+                  style="color: var(--accent-teal);">
+            Fuse Kinematics into Text Sheet
+          </button>
+          <button id="transcribeInkSheetBtn" class="btn-primary px-5 py-2.5 rounded-full text-xs" disabled>
+            Transcribe &amp; Calibrate S-Pen Sheet
+          </button>
+        </div>
+      </div>
+
       <!-- Handwriting Photo Upload Card -->
       <div class="glass-card p-4 sm:p-5 space-y-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 class="text-sm font-bold tracking-tight">Handwriting Photo Upload · Multimodal Vision</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
-              Upload a photo of handwritten notes for Gemini Vision transcription, observable stroke anchors &amp; Bayesian-capped traits.
+              Upload a notebook or letter photo for Gemini Vision transcription, stroke anchors &amp; Bayesian-capped traits.
             </p>
           </div>
           <div class="flex items-center gap-2">
@@ -645,81 +744,21 @@
           </div>
         </div>
       </div>
-
-      <!-- Live S-Pen Ink Pad -->
-      <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div>
-            <h2 class="text-sm font-bold tracking-tight">S-Pen Ink Surface · Kinematic Telemetry</h2>
-            <p class="text-xs" style="color: var(--ink-muted);">
-              DPR-corrected fountain ink, pressure variance, and left-hand 15.5° tilt zero-offset. Strokes persist across tabs.
-            </p>
-          </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <label class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
-              <input id="leftHandOffset" type="checkbox" checked class="accent-teal-600" />
-              <span>15.5° Left-Hand Zero</span>
-            </label>
-            <button id="expandInkBtn"
-                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
-                    style="color: var(--ink-secondary);">
-              Expand Pad
-            </button>
-            <button id="clearInkBtn"
-                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
-                    style="color: var(--danger-red);">
-              Clear Ink
-            </button>
-          </div>
-        </div>
-
-        <div class="stationery-pad">
-          <div class="stationery-head">
-            <span class="mono-num text-[10px] tracking-[0.14em] uppercase font-semibold" style="color: var(--ink-muted);">
-              120 GSM ARCHIVAL COTTON · S-PEN INK SURFACE
-            </span>
-            <span id="inkHeaderStat" class="mono-num text-[11px]" style="color: var(--ink-muted);">
-              Ready for stylus
-            </span>
-          </div>
-          <div class="stationery-ruled-body">
-            <canvas id="inkCanvas" class="ink-canvas"></canvas>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-          <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Strokes</div>
-            <div id="inkStrokes" class="mono-num text-base font-bold">0</div>
-          </div>
-          <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Mean Velocity</div>
-            <div id="inkVel" class="mono-num text-base font-bold">0.00</div>
-          </div>
-          <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Mean Pressure</div>
-            <div id="inkPress" class="mono-num text-base font-bold">0.00</div>
-          </div>
-          <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Adj Tilt X</div>
-            <div id="inkTiltX" class="mono-num text-base font-bold">0.0°</div>
-          </div>
-          <div class="glass-pill rounded-2xl p-3">
-            <div class="text-[11px]" style="color: var(--ink-muted);">Tilt Y</div>
-            <div id="inkTiltY" class="mono-num text-base font-bold">0.0°</div>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-          <span class="text-xs" style="color: var(--ink-muted);">
-            Your strokes stay saved when you switch tabs.
-          </span>
-          <button id="fuseAndSwitchBtn" class="btn-primary px-5 py-2.5 rounded-full text-xs">
-            Attach Ink &amp; Open Calibrator
-          </button>
-        </div>
-      </div>
     </section>
+
+    <!-- ACTIVE REQUEST PROGRESS / CANCEL BAR -->
+    <div id="inflightBar" class="hidden glass-card px-4 py-3 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-2.5 h-2.5 rounded-full animate-pulse shrink-0" style="background: var(--accent-teal);"></span>
+        <span id="inflightMsg" class="text-xs font-semibold truncate">Calibrating via Supabase...</span>
+        <span id="inflightTimer" class="mono-num text-xs shrink-0" style="color: var(--ink-muted);">0.0s</span>
+      </div>
+      <button id="cancelRequestBtn"
+              class="glass-pill px-3 py-1 rounded-full text-xs font-semibold shrink-0"
+              style="color: var(--danger-red);">
+        Cancel
+      </button>
+    </div>
 
     <!-- ERROR BANNER -->
     <div id="errorBanner" class="hidden glass-card p-4 text-sm font-medium"
@@ -728,6 +767,10 @@
 
     <!-- LIVE RESULTS STACK (3-TIER ARCHITECTURE) -->
     <section id="resultsSection" class="hidden space-y-4">
+      <div id="staleNoticeBanner" class="hidden glass-pill px-4 py-2 rounded-full text-xs font-semibold text-center mono-num"
+           style="color: var(--warn-amber); background: var(--warn-bg);">
+        Showing previous calibration — run calibration to refresh for current input
+      </div>
 
       <!-- Executive Read, Handwriting Transcription & Optional Reply -->
       <div class="glass-card p-5 space-y-3">
@@ -746,7 +789,6 @@
         <div id="llmDiagHint" class="hidden text-xs p-3 rounded-xl mono-num"
              style="background: var(--warn-bg); color: var(--warn-amber);"></div>
 
-        <!-- Handwriting Transcription Box (Shown When Photo Transcribed) -->
         <div id="transcriptionBox" class="hidden pt-3 border-t" style="border-color: var(--glass-border);">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
             <span class="text-xs font-semibold" style="color: var(--accent-teal);">
@@ -795,7 +837,7 @@
               <h3 class="text-sm font-bold">Deterministic Anchors</h3>
             </div>
             <p class="text-xs mt-0.5" style="color: var(--ink-muted);">
-              Computed in pure Deno TypeScript prior to any LLM call. Zero hallucination surface.
+              Computed in pure Deno TypeScript prior to any LLM call. Verified zero counts included cleanly.
             </p>
           </div>
           <div id="sampleLockPills" class="flex flex-wrap gap-1.5"></div>
@@ -834,10 +876,10 @@
                   style="background: var(--warn-bg); color: var(--warn-amber);">
               TIER 3 · CAPPED COUPLING
             </span>
-            <h3 class="text-sm font-bold">Weakly Coupled &amp; Uncoupled Hypotheses</h3>
+            <h3 class="text-sm font-bold">Situational Register ("Worksonality") &amp; Uncoupled Bounds</h3>
           </div>
           <p class="text-xs mt-0.5" style="color: var(--ink-muted);">
-            Hard mathematical ceilings prevent weak personality, graphology, or demographic guesses from posing as fact.
+            Hard mathematical ceilings separate context-specific register from fixed personality or demographic leaps.
           </p>
         </div>
 
@@ -879,22 +921,26 @@
     </div>
 
     <div class="p-5 overflow-y-auto space-y-4">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5 text-xs">
         <div class="glass-pill rounded-xl p-2.5">
-          <div style="color: var(--ink-muted);">Citations Verified</div>
+          <div style="color: var(--ink-muted);">Verified</div>
           <div id="diagVerified" class="mono-num text-base font-bold mt-0.5">—</div>
         </div>
         <div class="glass-pill rounded-xl p-2.5">
-          <div style="color: var(--ink-muted);">Citations Rejected</div>
+          <div style="color: var(--ink-muted);">Rejected</div>
           <div id="diagRejected" class="mono-num text-base font-bold mt-0.5">—</div>
         </div>
         <div class="glass-pill rounded-xl p-2.5">
-          <div style="color: var(--ink-muted);">Sample Locks Hit</div>
+          <div style="color: var(--ink-muted);">Locks Hit</div>
           <div id="diagLocks" class="mono-num text-base font-bold mt-0.5">—</div>
         </div>
         <div class="glass-pill rounded-xl p-2.5">
-          <div style="color: var(--ink-muted);">Avg Conf. Shift</div>
+          <div style="color: var(--ink-muted);">Conf. Shift</div>
           <div id="diagShift" class="mono-num text-base font-bold mt-0.5">—</div>
+        </div>
+        <div class="glass-pill rounded-xl p-2.5">
+          <div style="color: var(--ink-muted);">Latency</div>
+          <div id="diagLatency" class="mono-num text-base font-bold mt-0.5">—</div>
         </div>
       </div>
 
@@ -906,7 +952,7 @@
           <select id="endpointSelect"
                   class="w-full px-3 py-2 rounded-xl text-xs mono-num outline-none"
                   style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);">
-            <option value="telemetry-api-index-ts" selected>telemetry-api-index-ts (3-Tier Bayesian Gate)</option>
+            <option value="telemetry-api-index-ts" selected>telemetry-api-index-ts (3-Tier Bayesian Gate v2.1)</option>
             <option value="telemetry-api">telemetry-api (Alt / Legacy Slug)</option>
             <option value="decode-subtext">decode-subtext (Raw Production Compare)</option>
           </select>
@@ -950,17 +996,19 @@
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFubm5udmxpc3NkcWR3bWtncmFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MjY5MjcsImV4cCI6MjEwMzAwMjkyN30.LesQ_v4RJD5Gc4zOxociV8wl-fbSXnIerahwenYGv4k";
 
     let lastResponseJson = null;
+    let activeAbortController = null;
+    let inflightTimerId = null;
 
-    // Non-destructive WhatsApp file store: Map<fileName, { fileName, chatLabel, messages[] }>
+    // Non-destructive WhatsApp file store
     const waFileStore = new Map();
-    let activeSender = ""; // "" = All Senders
+    let activeSender = "";
     let alignedStreamWindow = [];
 
     // Non-destructive Handwriting Photo store
     let loadedHandwritingPhoto = null;
 
     // -----------------------------------------------------------------------
-    // 2. THEME, SHEET EXPANSION & NAVIGATION CONTROLS
+    // 2. THEME, STALE STATE, SHEET EXPANSION & NAVIGATION
     // -----------------------------------------------------------------------
     const htmlEl = document.documentElement;
     const themeToggleBtn = document.getElementById("themeToggleBtn");
@@ -976,6 +1024,14 @@
       stream: document.getElementById("panelStream"),
       ink: document.getElementById("panelInk"),
     };
+
+    function markResultsStale(isStale) {
+      const sec = document.getElementById("resultsSection");
+      const banner = document.getElementById("staleNoticeBanner");
+      if (sec.classList.contains("hidden")) return;
+      sec.classList.toggle("results-stale", isStale);
+      banner.classList.toggle("hidden", !isStale);
+    }
 
     function switchMode(mode) {
       Object.entries(panels).forEach(([k, el]) => el.classList.toggle("hidden", k !== mode));
@@ -1105,7 +1161,6 @@
       let year = parseInt(yStr, 10);
       if (year < 100) year += 2000;
 
-      // Auto-correct US MM/DD exports if second field > 12
       if (month > 12 && day <= 12) {
         [day, month] = [month, day];
       }
@@ -1166,6 +1221,7 @@
 
     async function handleWaFiles(fileList) {
       const notes = [];
+      let addedValid = false;
       for (const file of fileList) {
         const isTxtName = /\.txt$/i.test(file.name);
         const isTxtMime = !file.type || file.type === "text/plain";
@@ -1208,11 +1264,13 @@
             continue;
           }
           waFileStore.set(file.name, { fileName: file.name, chatLabel, messages: rows });
+          addedValid = true;
         } catch {
           notes.push(`${file.name} could not be read — skipped safely.`);
         }
       }
       showWaValidationNotes(notes);
+      if (addedValid) markResultsStale(true);
       rebuildStreamState();
     }
 
@@ -1251,6 +1309,7 @@
       bar.querySelectorAll("button[data-remove-file]").forEach((btn) => {
         btn.addEventListener("click", () => {
           waFileStore.delete(btn.getAttribute("data-remove-file"));
+          markResultsStale(true);
           rebuildStreamState();
         });
       });
@@ -1270,7 +1329,6 @@
       for (const m of allMsgs) {
         counts.set(m.sender, (counts.get(m.sender) || 0) + 1);
       }
-      // If previously selected sender was removed with a file, safely reset to All
       if (activeSender && !counts.has(activeSender)) {
         activeSender = "";
       }
@@ -1298,6 +1356,7 @@
       listEl.querySelectorAll("button[data-sender]").forEach((btn) => {
         btn.addEventListener("click", () => {
           activeSender = btn.getAttribute("data-sender") || "";
+          markResultsStale(true);
           rebuildStreamState();
         });
       });
@@ -1372,16 +1431,69 @@
     document.getElementById("senderSearchInput").addEventListener("input", () => {
       renderSenderPills(getAllMergedMessages());
     });
-    document.getElementById("windowLimitSelect").addEventListener("change", rebuildStreamState);
+    document.getElementById("windowLimitSelect").addEventListener("change", () => {
+      markResultsStale(true);
+      rebuildStreamState();
+    });
     document.getElementById("clearAllWaBtn").addEventListener("click", () => {
       waFileStore.clear();
       activeSender = "";
       showWaValidationNotes([]);
+      markResultsStale(true);
       rebuildStreamState();
     });
 
     // -----------------------------------------------------------------------
-    // 4. HANDWRITING PHOTO UPLOAD (NON-DESTRUCTIVE + DETERMINISTIC INK METRICS)
+    // 4. SHARED DETERMINISTIC IMAGE DENSITY ANALYZER (PHOTO + S-PEN SHEET)
+    // -----------------------------------------------------------------------
+    function computeCanvasDensityMetrics(sourceCanvas) {
+      const sampleW = Math.min(240, sourceCanvas.width);
+      const sampleH = Math.max(1, Math.round((sourceCanvas.height / sourceCanvas.width) * sampleW));
+      const sCan = document.createElement("canvas");
+      sCan.width = sampleW;
+      sCan.height = sampleH;
+      const sctx = sCan.getContext("2d", { willReadFrequently: true });
+      sctx.drawImage(sourceCanvas, 0, 0, sampleW, sampleH);
+      const pix = sctx.getImageData(0, 0, sampleW, sampleH).data;
+
+      let lumSum = 0;
+      const totalPx = sampleW * sampleH;
+      const lums = new Float32Array(totalPx);
+      for (let idx = 0, p = 0; p < totalPx; p++, idx += 4) {
+        const lum = 0.299 * pix[idx] + 0.587 * pix[idx + 1] + 0.114 * pix[idx + 2];
+        lums[p] = lum;
+        lumSum += lum;
+      }
+      const meanLum = lumSum / totalPx;
+      const inkThresh = Math.min(185, meanLum * 0.8);
+
+      let darkPx = 0;
+      const rowDensities = [];
+      for (let y = 0; y < sampleH; y++) {
+        let rowDark = 0;
+        const rowStart = y * sampleW;
+        for (let x = 0; x < sampleW; x++) {
+          if (lums[rowStart + x] < inkThresh) {
+            darkPx++;
+            rowDark++;
+          }
+        }
+        rowDensities.push(rowDark / sampleW);
+      }
+      const inkCoverageRatio = Number((darkPx / totalPx).toFixed(4));
+      const meanRow = rowDensities.reduce((a, b) => a + b, 0) / rowDensities.length;
+      const rowVar =
+        rowDensities.reduce((acc, v) => acc + Math.pow(v - meanRow, 2), 0) /
+        Math.max(1, rowDensities.length - 1);
+
+      return {
+        inkCoverageRatio,
+        horizontalDensityVariance: Number(rowVar.toFixed(5)),
+      };
+    }
+
+    // -----------------------------------------------------------------------
+    // 5. HANDWRITING PHOTO UPLOAD (NON-DESTRUCTIVE)
     // -----------------------------------------------------------------------
     function setPhotoAlert(msg) {
       const el = document.getElementById("photoValidationAlert");
@@ -1448,7 +1560,6 @@
           i.src = dataUrl;
         });
 
-        // Compress cleanly to max 1400px edge for fast mobile Edge Function upload
         const maxEdge = 1400;
         const scale = Math.min(1, maxEdge / Math.max(img.naturalWidth, img.naturalHeight));
         const w = Math.max(1, Math.round(img.naturalWidth * scale));
@@ -1462,46 +1573,7 @@
         octx.fillRect(0, 0, w, h);
         octx.drawImage(img, 0, 0, w, h);
 
-        // Deterministic Tier 1 image metrics (ink coverage + horizontal line rhythm variance)
-        const sampleW = Math.min(240, w);
-        const sampleH = Math.max(1, Math.round((h / w) * sampleW));
-        const sCan = document.createElement("canvas");
-        sCan.width = sampleW;
-        sCan.height = sampleH;
-        const sctx = sCan.getContext("2d", { willReadFrequently: true });
-        sctx.drawImage(off, 0, 0, sampleW, sampleH);
-        const pix = sctx.getImageData(0, 0, sampleW, sampleH).data;
-
-        let lumSum = 0;
-        const totalPx = sampleW * sampleH;
-        const lums = new Float32Array(totalPx);
-        for (let idx = 0, p = 0; p < totalPx; p++, idx += 4) {
-          const lum = 0.299 * pix[idx] + 0.587 * pix[idx + 1] + 0.114 * pix[idx + 2];
-          lums[p] = lum;
-          lumSum += lum;
-        }
-        const meanLum = lumSum / totalPx;
-        const inkThresh = Math.min(180, meanLum * 0.78);
-
-        let darkPx = 0;
-        const rowDensities = [];
-        for (let y = 0; y < sampleH; y++) {
-          let rowDark = 0;
-          const rowStart = y * sampleW;
-          for (let x = 0; x < sampleW; x++) {
-            if (lums[rowStart + x] < inkThresh) {
-              darkPx++;
-              rowDark++;
-            }
-          }
-          rowDensities.push(rowDark / sampleW);
-        }
-        const inkCoverageRatio = Number((darkPx / totalPx).toFixed(4));
-        const meanRow = rowDensities.reduce((a, b) => a + b, 0) / rowDensities.length;
-        const rowVar =
-          rowDensities.reduce((acc, v) => acc + Math.pow(v - meanRow, 2), 0) /
-          Math.max(1, rowDensities.length - 1);
-
+        const density = computeCanvasDensityMetrics(off);
         const jpegDataUrl = off.toDataURL("image/jpeg", 0.82);
         const base64 = jpegDataUrl.replace(/^data:image\/jpeg;base64,/, "");
         const sizeKb = Number(((base64.length * 0.75) / 1024).toFixed(1));
@@ -1512,9 +1584,10 @@
           width: w,
           height: h,
           sizeKb,
-          inkCoverageRatio,
-          horizontalDensityVariance: Number(rowVar.toFixed(5)),
+          inkCoverageRatio: density.inkCoverageRatio,
+          horizontalDensityVariance: density.horizontalDensityVariance,
           filename: file.name,
+          source: "photo_upload",
         };
         document.getElementById("attachPhotoToggle").checked = true;
         updatePhotoUI();
@@ -1545,15 +1618,18 @@
     });
 
     // -----------------------------------------------------------------------
-    // 5. S-PEN INK STUDIO (PERSISTENT VECTOR STROKES + 15.5° LEFT-HAND OFFSET)
+    // 6. S-PEN INK STUDIO (PALM REJECTION + COALESCED EVENTS + CANVAS-TO-VISION)
     // -----------------------------------------------------------------------
     const canvas = document.getElementById("inkCanvas");
     const ctx = canvas.getContext("2d");
+    const palmRejectToggle = document.getElementById("palmRejectToggle");
+
     const inkState = {
-      drawing: false,
+      activePointerId: null,
       strokes: 0,
       points: 0,
-      strokeHistory: [],
+      coalescedPoints: 0,
+      strokeHistory: [], // Array of strokes: [{x, y, w}, ...]
       currentStroke: null,
       velocities: [],
       pressures: [],
@@ -1621,21 +1697,28 @@
     }
 
     function updateInkReadout() {
-      document.getElementById("inkStrokes").textContent = String(inkState.strokes);
-      document.getElementById("inkBadgeCount").textContent = String(inkState.strokes);
+      const hasInk = inkState.strokeHistory.length > 0;
+      document.getElementById("inkStrokes").textContent = String(inkState.strokeHistory.length);
+      document.getElementById("inkBadgeCount").textContent = String(inkState.strokeHistory.length);
       document.getElementById("inkVel").textContent = mean(inkState.velocities).toFixed(2);
       document.getElementById("inkPress").textContent = mean(inkState.pressures).toFixed(2);
       document.getElementById("inkTiltX").textContent = `${mean(inkState.tiltXs).toFixed(1)}°`;
       document.getElementById("inkTiltY").textContent = `${mean(inkState.tiltYs).toFixed(1)}°`;
-      document.getElementById("inkHeaderStat").textContent =
-        inkState.strokes > 0 ? `${inkState.strokes} strokes captured` : "Ready for stylus";
+      const palmLabel = palmRejectToggle.checked ? "Palm Reject ON" : "Touch + Pen";
+      document.getElementById("inkHeaderStat").textContent = hasInk
+        ? `${inkState.strokeHistory.length} strokes · ${palmLabel}`
+        : `${palmLabel} · Ready for S-Pen`;
+      document.getElementById("transcribeInkSheetBtn").disabled = !hasInk;
     }
 
+    palmRejectToggle.addEventListener("change", updateInkReadout);
+
     function getKinematicsPayload() {
-      if (inkState.strokes === 0) return null;
+      if (inkState.strokeHistory.length === 0) return null;
       return {
-        strokeCount: inkState.strokes,
+        strokeCount: inkState.strokeHistory.length,
         pointCount: inkState.points,
+        coalescedPointCount: inkState.coalescedPoints,
         meanVelocity: Number(mean(inkState.velocities).toFixed(3)),
         peakVelocity: Number((inkState.velocities.length ? Math.max(...inkState.velocities) : 0).toFixed(3)),
         meanPressure: Number(mean(inkState.pressures).toFixed(3)),
@@ -1643,23 +1726,92 @@
         meanTiltX: Number(mean(inkState.tiltXs).toFixed(2)),
         meanTiltY: Number(mean(inkState.tiltYs).toFixed(2)),
         leftHandZeroOffset: document.getElementById("leftHandOffset").checked,
+        palmRejectionEnabled: palmRejectToggle.checked,
         durationMs: Math.max(0, Math.round(inkState.endTime - inkState.startTime)),
       };
     }
 
+    // Export high-contrast S-Pen ink pad to JPEG for Gemini Vision transcription
+    function exportInkSheetAsImage() {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || inkState.strokeHistory.length === 0) return null;
+      const scale = Math.min(2, 1400 / Math.max(rect.width, rect.height));
+      const w = Math.max(1, Math.round(rect.width * scale));
+      const h = Math.max(1, Math.round(rect.height * scale));
+
+      const off = document.createElement("canvas");
+      off.width = w;
+      off.height = h;
+      const octx = off.getContext("2d", { willReadFrequently: true });
+      octx.fillStyle = "#FCFBF7";
+      octx.fillRect(0, 0, w, h);
+
+      // Subtle archival rules to help Vision track line baselines
+      octx.strokeStyle = "rgba(71, 108, 128, 0.14)";
+      octx.lineWidth = 1;
+      for (let y = 14 * scale; y < h; y += 34 * scale) {
+        octx.beginPath();
+        octx.moveTo(0, y);
+        octx.lineTo(w, y);
+        octx.stroke();
+      }
+
+      // Draw dark fountain-pen ink cleanly regardless of current UI theme
+      octx.strokeStyle = "#101C2E";
+      octx.lineCap = "round";
+      octx.lineJoin = "round";
+      for (const stroke of inkState.strokeHistory) {
+        if (stroke.length < 2) continue;
+        for (let i = 1; i < stroke.length; i++) {
+          octx.lineWidth = Math.max(1.8, stroke[i].w * scale);
+          octx.beginPath();
+          octx.moveTo(stroke[i - 1].x * scale, stroke[i - 1].y * scale);
+          octx.lineTo(stroke[i].x * scale, stroke[i].y * scale);
+          octx.stroke();
+        }
+      }
+
+      const density = computeCanvasDensityMetrics(off);
+      const jpegDataUrl = off.toDataURL("image/jpeg", 0.86);
+      const base64 = jpegDataUrl.replace(/^data:image\/jpeg;base64,/, "");
+      const sizeKb = Number(((base64.length * 0.75) / 1024).toFixed(1));
+
+      return {
+        mimeType: "image/jpeg",
+        base64,
+        width: w,
+        height: h,
+        sizeKb,
+        inkCoverageRatio: density.inkCoverageRatio,
+        horizontalDensityVariance: density.horizontalDensityVariance,
+        filename: "spen-archival-sheet.jpg",
+        source: "spen_canvas",
+      };
+    }
+
+    function shouldRejectPointer(e) {
+      // Strict Palm Rejection: when ON, ignore all finger/palm touch contacts
+      if (palmRejectToggle.checked && e.pointerType === "touch") return true;
+      return false;
+    }
+
     canvas.addEventListener("pointerdown", (e) => {
+      if (shouldRejectPointer(e)) return;
+      if (inkState.activePointerId !== null) return;
+      e.preventDefault();
       canvas.setPointerCapture(e.pointerId);
+
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const press = e.pressure > 0 ? e.pressure : 0.5;
       const width = Math.max(1.2, press * 3.8);
 
-      inkState.drawing = true;
+      inkState.activePointerId = e.pointerId;
       inkState.strokes++;
       inkState.lastX = x;
       inkState.lastY = y;
-      inkState.lastT = performance.now();
+      inkState.lastT = e.timeStamp || performance.now();
       if (!inkState.startTime) inkState.startTime = inkState.lastT;
       inkState.endTime = inkState.lastT;
 
@@ -1669,57 +1821,81 @@
     });
 
     canvas.addEventListener("pointermove", (e) => {
-      if (!inkState.drawing) return;
+      if (e.pointerId !== inkState.activePointerId) return;
+      if (shouldRejectPointer(e)) return;
+      e.preventDefault();
+
       const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const now = performance.now();
-      const dt = Math.max(1, now - inkState.lastT);
-      const dist = Math.hypot(x - inkState.lastX, y - inkState.lastY);
-      const vel = dist / dt;
-      const press = e.pressure > 0 ? e.pressure : 0.5;
+      const samples =
+        typeof e.getCoalescedEvents === "function" && e.getCoalescedEvents().length > 0
+          ? e.getCoalescedEvents()
+          : [e];
+
       const offset = document.getElementById("leftHandOffset").checked ? 15.5 : 0;
-      const adjTiltX = (e.tiltX || 0) + offset;
-      const width = Math.max(1.2, press * 3.8);
-
-      inkState.points++;
-      inkState.velocities.push(vel);
-      inkState.pressures.push(press);
-      inkState.tiltXs.push(adjTiltX);
-      inkState.tiltYs.push(e.tiltY || 0);
-      inkState.endTime = now;
-
-      if (inkState.currentStroke) {
-        inkState.currentStroke.push({ x, y, w: width });
-      }
-
       ctx.strokeStyle = getInkColor();
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
-      ctx.lineWidth = width;
-      ctx.beginPath();
-      ctx.moveTo(inkState.lastX, inkState.lastY);
-      ctx.lineTo(x, y);
-      ctx.stroke();
 
-      inkState.lastX = x;
-      inkState.lastY = y;
-      inkState.lastT = now;
+      for (const pt of samples) {
+        const x = pt.clientX - rect.left;
+        const y = pt.clientY - rect.top;
+        const now = pt.timeStamp || performance.now();
+        const dt = Math.max(1, now - inkState.lastT);
+        const dist = Math.hypot(x - inkState.lastX, y - inkState.lastY);
+        if (dist < 0.25) continue;
+
+        const vel = dist / dt;
+        const press = pt.pressure > 0 ? pt.pressure : 0.5;
+        const adjTiltX = (pt.tiltX || 0) + offset;
+        const width = Math.max(1.2, press * 3.8);
+
+        inkState.coalescedPoints++;
+        inkState.velocities.push(vel);
+        inkState.pressures.push(press);
+        inkState.tiltXs.push(adjTiltX);
+        inkState.tiltYs.push(pt.tiltY || 0);
+        inkState.endTime = now;
+
+        if (inkState.currentStroke) {
+          inkState.currentStroke.push({ x, y, w: width });
+        }
+
+        ctx.lineWidth = width;
+        ctx.beginPath();
+        ctx.moveTo(inkState.lastX, inkState.lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+
+        inkState.lastX = x;
+        inkState.lastY = y;
+        inkState.lastT = now;
+      }
+      inkState.points++;
       updateInkReadout();
     });
 
-    const endStroke = () => {
-      inkState.drawing = false;
+    const endStroke = (e) => {
+      if (e.pointerId !== inkState.activePointerId) return;
+      inkState.activePointerId = null;
       inkState.currentStroke = null;
     };
     canvas.addEventListener("pointerup", endStroke);
     canvas.addEventListener("pointercancel", endStroke);
 
+    document.getElementById("undoInkBtn").addEventListener("click", () => {
+      if (inkState.strokeHistory.length === 0) return;
+      inkState.strokeHistory.pop();
+      redrawInkHistory();
+      updateInkReadout();
+    });
+
     document.getElementById("clearInkBtn").addEventListener("click", () => {
       const rect = canvas.getBoundingClientRect();
       ctx.clearRect(0, 0, rect.width, rect.height);
+      inkState.activePointerId = null;
       inkState.strokes = 0;
       inkState.points = 0;
+      inkState.coalescedPoints = 0;
       inkState.strokeHistory = [];
       inkState.currentStroke = null;
       inkState.velocities = [];
@@ -1737,7 +1913,7 @@
     });
 
     // -----------------------------------------------------------------------
-    // 6. LIVE EDGE FUNCTION INVOCATION & 3-TIER RENDERING
+    // 7. LIVE EDGE FUNCTION INVOCATION (WITH CANCEL + ELAPSED TIMER + RENDER)
     // -----------------------------------------------------------------------
     function showError(msg) {
       const el = document.getElementById("errorBanner");
@@ -1750,8 +1926,46 @@
       }
     }
 
-    async function callEdgeFunction(payload) {
+    function setInflight(active, labelText = "Calibrating via Supabase...") {
+      const bar = document.getElementById("inflightBar");
+      const msgEl = document.getElementById("inflightMsg");
+      const timerEl = document.getElementById("inflightTimer");
+
+      if (inflightTimerId) {
+        clearInterval(inflightTimerId);
+        inflightTimerId = null;
+      }
+
+      if (!active) {
+        bar.classList.add("hidden");
+        return;
+      }
+
+      const t0 = performance.now();
+      msgEl.textContent = labelText;
+      timerEl.textContent = "0.0s";
+      bar.classList.remove("hidden");
+      markResultsStale(true);
+
+      inflightTimerId = setInterval(() => {
+        const secs = ((performance.now() - t0) / 1000).toFixed(1);
+        timerEl.textContent = `${secs}s`;
+      }, 100);
+    }
+
+    document.getElementById("cancelRequestBtn").addEventListener("click", () => {
+      if (activeAbortController) {
+        activeAbortController.abort();
+        activeAbortController = null;
+      }
+    });
+
+    async function callEdgeFunction(payload, statusLabel) {
       showError("");
+      if (activeAbortController) activeAbortController.abort();
+      activeAbortController = new AbortController();
+      setInflight(true, statusLabel);
+
       const fnName = endpointSelect.value;
       const url = `${SUPABASE_URL}/functions/v1/${fnName}`;
       const bodyToSend =
@@ -1767,17 +1981,23 @@
       const localKey = (localStorage.getItem("vc_rd_gemini_override") || "").trim();
       if (localKey) headers["x-gemini-key"] = localKey;
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(bodyToSend),
-      });
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers,
+          body: JSON.stringify(bodyToSend),
+          signal: activeAbortController.signal,
+        });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || `HTTP ${res.status} from ${fnName}`);
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || `HTTP ${res.status} from ${fnName}`);
+        }
+        return { fnName, data };
+      } finally {
+        activeAbortController = null;
+        setInflight(false);
       }
-      return { fnName, data };
     }
 
     function renderResults(fnName, data) {
@@ -1791,15 +2011,25 @@
 
       const sec = document.getElementById("resultsSection");
       sec.classList.remove("hidden");
+      markResultsStale(false);
 
       const isLiveLlm = data.meta?.llm_status === "live_gemini_ok";
-      document.getElementById("llmHealthDot").style.background = isLiveLlm ? "#10B981" : "#F59E0B";
+      const isRateLimited = Boolean(data.meta?.rate_limited);
+      document.getElementById("llmHealthDot").style.background = isLiveLlm
+        ? "#10B981"
+        : isRateLimited
+        ? "#EF4444"
+        : "#F59E0B";
       document.getElementById("executiveReadText").textContent = data.executive_read || "No synthesis returned.";
 
       const metaBadges = document.getElementById("metaBadges");
       const senderBadge = data.meta?.sender
         ? `<span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill">sender: ${escapeHtml(data.meta.sender)}</span>`
         : "";
+      const latencyBadge =
+        typeof data.meta?.elapsed_ms === "number"
+          ? `<span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill">${(data.meta.elapsed_ms / 1000).toFixed(1)}s</span>`
+          : "";
       metaBadges.innerHTML = `
         <span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill" style="color: ${isLiveLlm ? "#059669" : "var(--warn-amber)"};">
           ${escapeHtml(data.meta?.llm_model || "unknown")}
@@ -1808,12 +2038,15 @@
           ${escapeHtml(data.meta?.mode || "single")} · n=${data.meta?.guards?.sample_n ?? 0}
         </span>
         ${senderBadge}
+        ${latencyBadge}
       `;
 
       const diagHint = document.getElementById("llmDiagHint");
       const warningText = (data.meta?.warnings || []).join(" · ");
       if (!isLiveLlm && data.meta?.llm_status && data.meta.llm_status !== "llm_toggle_off") {
-        diagHint.textContent = `LLM Status: ${data.meta.llm_status}${warningText ? " | " + warningText : ""}`;
+        diagHint.textContent = isRateLimited
+          ? `Rate-Limit Cooldown: Free-Tier RPM/RPD limit hit. Wait ~30–60s or enable Pay-As-You-Go in Google AI Studio. (${data.meta.llm_status})`
+          : `LLM Status: ${data.meta.llm_status}${warningText ? " | " + warningText : ""}`;
         diagHint.classList.remove("hidden");
       } else if (warningText) {
         diagHint.textContent = `Notice: ${warningText}`;
@@ -1822,7 +2055,6 @@
         diagHint.classList.add("hidden");
       }
 
-      // Handwriting Transcription Box
       const transBox = document.getElementById("transcriptionBox");
       if (data.handwriting_transcription && data.handwriting_transcription.trim()) {
         document.getElementById("transcriptionText").textContent = data.handwriting_transcription;
@@ -1856,9 +2088,9 @@
       const kpis = [
         { label: "Word Count", val: syn.word_cnt, sub: syn.word_cnt !== syn.word_cnt_legacy_raw ? `Legacy raw: ${syn.word_cnt_legacy_raw}` : "Exact match" },
         { label: "Apostrophes", val: syn.apostrophe_cnt, sub: `Missing: ${syn.has_missing_apo}` },
-        { label: "Modals / Ifs", val: `${syn.modal_softener_cnt} / ${syn.conditional_if_cnt}`, sub: `Hedge: ${syn.has_hedge} · Friction: ${syn.has_friction}` },
+        { label: "Warmth / Affect", val: `${syn.warmth_cnt ?? 0} / ${syn.has_affection ?? 0}`, sub: `Hedge: ${syn.has_hedge} · Friction: ${syn.has_friction}` },
         { label: "Urgency (Cal.)", val: syn.has_urgency, sub: syn.polite_help_filtered ? "Filtered polite 'help'" : `Legacy: ${syn.has_urgency_legacy}` },
-        { label: "Excl / Quest", val: `${syn.excl_cnt} / ${syn.quest_cnt}`, sub: `Lists: ${syn.numbered_list_cnt} · En-dash: ${syn.en_dash_cnt}` },
+        { label: "Excl / Quest", val: `${syn.excl_cnt} / ${syn.quest_cnt}`, sub: `Modals: ${syn.modal_softener_cnt} · Ifs: ${syn.conditional_if_cnt}` },
         { label: "1PS / 2P Ratio", val: `${(syn.ratio_1ps * 100).toFixed(1)}% / ${(syn.ratio_2p * 100).toFixed(1)}%`, sub: `TTR: ${syn.lexical_ttr}` },
         { label: "Divergence Idx", val: syn.mindpaper_divergence_idx, sub: `Legacy: ${syn.mindpaper_divergence_legacy}` },
         { label: "Burstiness Bₙ", val: tmp.kim_jo_burstiness ?? "Locked", sub: `Jumps: ${tmp.cross_chat_jumps ?? 0} · 24h R: ${tmp.circular_24h_R ?? "Locked"}` },
@@ -1866,7 +2098,7 @@
 
       if (hw && hw.present) {
         kpis.push({
-          label: "Handwriting Photo",
+          label: hw.source === "spen_canvas" ? "S-Pen Sheet" : "Handwriting Photo",
           val: `${hw.width}×${hw.height}`,
           sub: `Ink: ${hw.ink_coverage_ratio !== null ? (hw.ink_coverage_ratio * 100).toFixed(1) + "%" : "—"} · ${hw.size_kb} KB`,
         });
@@ -1884,11 +2116,16 @@
         .join("");
 
       const matchChips = [
-        ...(syn.wa_header_stripped ? ["patch: WhatsApp prefix stripped"] : []),
-        ...(tmp.window_start_dt ? [`window: ${tmp.window_start_dt.slice(0, 10)} → ${tmp.window_end_dt.slice(0, 10)} (${tmp.span_hours}h)`] : []),
-        ...(syn.hedge_matches || []).map((m) => `hedge: "${m}"`),
-        ...(syn.modal_matches || []).map((m) => `modal: "${m}"`),
-        ...(syn.friction_matches || []).map((m) => `friction: "${m}"`),
+        ...(syn.wa_headers_stripped_cnt > 0
+          ? [`patch: stripped ${syn.wa_headers_stripped_cnt} WhatsApp header(s)`]
+          : []),
+        ...(tmp.window_start_dt
+          ? [`window: ${tmp.window_start_dt.slice(0, 10)} → ${tmp.window_end_dt.slice(0, 10)} (${tmp.span_hours}h)`]
+          : []),
+        ...(syn.warmth_matches || []).slice(0, 5).map((m) => `warmth: "${m}"`),
+        ...(syn.hedge_matches || []).slice(0, 5).map((m) => `hedge: "${m}"`),
+        ...(syn.modal_matches || []).slice(0, 5).map((m) => `modal: "${m}"`),
+        ...(syn.friction_matches || []).slice(0, 5).map((m) => `friction: "${m}"`),
         ...(syn.polite_help_filtered ? ["patch: polite 'help' excluded from urgency"] : []),
       ];
       document.getElementById("tier1Matches").innerHTML = matchChips
@@ -1905,6 +2142,8 @@
       document.getElementById("diagRejected").textContent = String(audit.citations_rejected ?? 0);
       document.getElementById("diagLocks").textContent = String(audit.sample_locks_triggered ?? 0);
       document.getElementById("diagShift").textContent = `${(audit.avg_confidence_adjustment ?? 0) >= 0 ? "+" : ""}${audit.avg_confidence_adjustment ?? 0}`;
+      document.getElementById("diagLatency").textContent =
+        typeof data.meta?.elapsed_ms === "number" ? `${(data.meta.elapsed_ms / 1000).toFixed(1)}s` : "—";
 
       const t2 = data.tier2_aligned_subtext || [];
       document.getElementById("tier2List").innerHTML = t2
@@ -1993,21 +2232,52 @@
       }
 
       btn.disabled = true;
-      label.textContent = "Calibrating via Supabase...";
+      label.textContent = "Calibrating...";
       try {
-        const { fnName, data } = await callEdgeFunction({
-          mode: text ? "single" : handwritingImage ? "handwriting" : "kinematic",
-          text,
-          kinematics,
-          handwritingImage,
-          runLlm: document.getElementById("runLlmToggle").checked,
-        });
+        const { fnName, data } = await callEdgeFunction(
+          {
+            mode: text ? "single" : handwritingImage ? "handwriting" : "kinematic",
+            text,
+            kinematics,
+            handwritingImage,
+            runLlm: document.getElementById("runLlmToggle").checked,
+          },
+          "Running 3-Tier Syntax Calibration...",
+        );
         renderResults(fnName, data);
       } catch (err) {
-        showError(`Edge Function error: ${err.message}`);
+        if (err.name === "AbortError") showError("Calibration cancelled.");
+        else showError(`Edge Function error: ${err.message}`);
       } finally {
         btn.disabled = false;
         label.textContent = "Run 3-Tier Calibration";
+      }
+    });
+
+    document.getElementById("transcribeInkSheetBtn").addEventListener("click", async () => {
+      const inkImg = exportInkSheetAsImage();
+      if (!inkImg) return;
+      const btn = document.getElementById("transcribeInkSheetBtn");
+      btn.disabled = true;
+      btn.textContent = "Transcribing & Calibrating...";
+      try {
+        const { fnName, data } = await callEdgeFunction(
+          {
+            mode: "handwriting",
+            text: "",
+            kinematics: getKinematicsPayload(),
+            handwritingImage: inkImg,
+            runLlm: document.getElementById("runLlmToggle").checked,
+          },
+          "Sending S-Pen Sheet + Kinematics to Gemini Vision...",
+        );
+        renderResults(fnName, data);
+      } catch (err) {
+        if (err.name === "AbortError") showError("S-Pen sheet calibration cancelled.");
+        else showError(`S-Pen sheet calibration failed: ${err.message}`);
+      } finally {
+        btn.disabled = inkState.strokeHistory.length === 0;
+        btn.textContent = "Transcribe & Calibrate S-Pen Sheet";
       }
     });
 
@@ -2015,18 +2285,22 @@
       if (!loadedHandwritingPhoto) return;
       const btn = document.getElementById("runHandwritingNowBtn");
       btn.disabled = true;
-      btn.textContent = "Analyzing Handwriting Photo...";
+      btn.textContent = "Analyzing Photo...";
       try {
-        const { fnName, data } = await callEdgeFunction({
-          mode: "handwriting",
-          text: "",
-          kinematics: getKinematicsPayload(),
-          handwritingImage: loadedHandwritingPhoto,
-          runLlm: document.getElementById("runLlmToggle").checked,
-        });
+        const { fnName, data } = await callEdgeFunction(
+          {
+            mode: "handwriting",
+            text: "",
+            kinematics: getKinematicsPayload(),
+            handwritingImage: loadedHandwritingPhoto,
+            runLlm: document.getElementById("runLlmToggle").checked,
+          },
+          "Running Multimodal Handwriting Vision Calibration...",
+        );
         renderResults(fnName, data);
       } catch (err) {
-        showError(`Handwriting calibration failed: ${err.message}`);
+        if (err.name === "AbortError") showError("Photo calibration cancelled.");
+        else showError(`Handwriting calibration failed: ${err.message}`);
       } finally {
         btn.disabled = false;
         btn.textContent = "Calibrate Handwriting Photo Now";
@@ -2037,20 +2311,24 @@
       const btn = document.getElementById("runStreamBtn");
       const limit = parseInt(document.getElementById("windowLimitSelect").value, 10) || 400;
       btn.disabled = true;
-      btn.textContent = "Running Aligned Stream Calibration...";
+      btn.textContent = "Calibrating Stream...";
       try {
-        const { fnName, data } = await callEdgeFunction({
-          mode: "stream",
-          sender: activeSender || undefined,
-          windowLimit: limit,
-          messages: alignedStreamWindow,
-          runLlm: document.getElementById("runLlmToggle").checked,
-        });
+        const { fnName, data } = await callEdgeFunction(
+          {
+            mode: "stream",
+            sender: activeSender || undefined,
+            windowLimit: limit,
+            messages: alignedStreamWindow,
+            runLlm: document.getElementById("runLlmToggle").checked,
+          },
+          `Calibrating Aligned Stream (${alignedStreamWindow.length} msgs)...`,
+        );
         renderResults(fnName, data);
       } catch (err) {
-        showError(`Stream calibration failed: ${err.message}`);
+        if (err.name === "AbortError") showError("Stream calibration cancelled.");
+        else showError(`Stream calibration failed: ${err.message}`);
       } finally {
-        btn.disabled = false;
+        btn.disabled = alignedStreamWindow.length === 0;
         btn.textContent = "Calibrate Aligned Stream";
       }
     });
