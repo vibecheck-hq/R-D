@@ -3,31 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>VibeCheck R&amp;D · CLEPM-Bayesian Studio</title>
+  <title>VibeCheck R&amp;D · Archival Paper-Glass Studio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root,
     [data-theme="feelcue"] {
-      --bg-canvas: #EFF7F6;
-      --bg-mesh-1: rgba(45, 212, 191, 0.20);
-      --bg-mesh-2: rgba(13, 148, 136, 0.12);
-      --bg-mesh-3: rgba(255, 255, 255, 0.90);
-      --glass-surface: rgba(255, 255, 255, 0.78);
-      --glass-strong: rgba(255, 255, 255, 0.90);
+      --bg-canvas: #ECF5F4;
+      --bg-mesh-1: rgba(45, 212, 191, 0.18);
+      --bg-mesh-2: rgba(13, 148, 136, 0.11);
+      --bg-mesh-3: rgba(246, 241, 230, 0.55);
+      --glass-surface: rgba(255, 255, 255, 0.72);
+      --glass-strong: rgba(252, 251, 247, 0.94);
       --glass-border: rgba(13, 148, 136, 0.16);
-      --glass-shadow: 0 12px 34px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(13, 148, 136, 0.05);
-      --paper-bg: rgba(255, 255, 255, 0.88);
-      --paper-line: rgba(13, 148, 136, 0.14);
-      --margin-red: rgba(239, 68, 68, 0.42);
+      --glass-shadow: 0 14px 38px rgba(15, 23, 42, 0.06), 0 2px 10px rgba(13, 148, 136, 0.05);
+
+      /* Luxury 120 GSM Cotton Stationery Paper */
+      --paper-top: #FCFBF7;
+      --paper-bottom: #F5F0E4;
+      --paper-edge: #E6DFCE;
+      --paper-stack-1: #EFEADF;
+      --paper-stack-2: #E5DFD0;
+      --paper-header-bg: rgba(244, 239, 227, 0.58);
+      --paper-rule: rgba(71, 108, 128, 0.14);
+      --margin-red-1: rgba(208, 69, 69, 0.42);
+      --margin-red-2: rgba(208, 69, 69, 0.22);
+      --paper-grain-opacity: 0.045;
+      --fountain-ink: #1A2433;
+      --stylus-ink: #14223B;
+
       --ink-primary: #0F172A;
       --ink-secondary: #334155;
       --ink-muted: #64748B;
       --accent-teal: #0D9488;
       --accent-mint: #2DD4BF;
       --accent-soft: rgba(13, 148, 136, 0.10);
-      --chip-bg: rgba(239, 247, 246, 0.92);
+      --chip-bg: rgba(240, 247, 246, 0.90);
       --warn-amber: #B45309;
-      --warn-bg: rgba(245, 158, 11, 0.12);
+      --warn-bg: rgba(245, 158, 11, 0.13);
       --danger-red: #DC2626;
       --danger-bg: rgba(239, 68, 68, 0.10);
       --dock-bg: rgba(255, 255, 255, 0.86);
@@ -39,19 +51,31 @@
       --bg-mesh-2: rgba(13, 148, 136, 0.10);
       --bg-mesh-3: rgba(15, 23, 42, 0.85);
       --glass-surface: rgba(15, 23, 42, 0.72);
-      --glass-strong: rgba(15, 23, 42, 0.88);
+      --glass-strong: rgba(15, 23, 42, 0.92);
       --glass-border: rgba(45, 212, 191, 0.18);
-      --glass-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
-      --paper-bg: rgba(12, 20, 34, 0.82);
-      --paper-line: rgba(45, 212, 191, 0.11);
-      --margin-red: rgba(239, 68, 68, 0.45);
+      --glass-shadow: 0 16px 42px rgba(0, 0, 0, 0.48);
+
+      /* Dark Architectural Vellum */
+      --paper-top: #111A2B;
+      --paper-bottom: #0B1220;
+      --paper-edge: rgba(45, 212, 191, 0.22);
+      --paper-stack-1: #0E1726;
+      --paper-stack-2: #0A111D;
+      --paper-header-bg: rgba(15, 23, 42, 0.70);
+      --paper-rule: rgba(45, 212, 191, 0.11);
+      --margin-red-1: rgba(248, 113, 113, 0.44);
+      --margin-red-2: rgba(248, 113, 113, 0.20);
+      --paper-grain-opacity: 0.035;
+      --fountain-ink: #E8EFF8;
+      --stylus-ink: #2DD4BF;
+
       --ink-primary: #F1F5F9;
       --ink-secondary: #CBD5E1;
       --ink-muted: #94A3B8;
       --accent-teal: #2DD4BF;
       --accent-mint: #00F5D4;
       --accent-soft: rgba(45, 212, 191, 0.14);
-      --chip-bg: rgba(30, 41, 59, 0.75);
+      --chip-bg: rgba(30, 41, 59, 0.78);
       --warn-amber: #FBBF24;
       --warn-bg: rgba(245, 158, 11, 0.16);
       --danger-red: #F87171;
@@ -68,16 +92,16 @@
       color: var(--ink-primary);
       background-color: var(--bg-canvas);
       background-image:
-        radial-gradient(circle at 12% 8%, var(--bg-mesh-1), transparent 44%),
+        radial-gradient(circle at 12% 6%, var(--bg-mesh-1), transparent 44%),
         radial-gradient(circle at 88% 18%, var(--bg-mesh-2), transparent 48%),
-        radial-gradient(circle at 50% 92%, var(--bg-mesh-1), transparent 52%);
+        radial-gradient(circle at 50% 90%, var(--bg-mesh-3), transparent 55%);
       background-attachment: fixed;
-      padding-bottom: 104px;
+      padding-bottom: 98px;
       transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .serif-prose {
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
     }
 
     .mono-num {
@@ -100,32 +124,72 @@
       border: 1px solid var(--glass-border);
     }
 
-    /* FeelCue Signature Lined-Paper Glass Sheet */
-    .lined-paper-shell {
+    /* --------------------------------------------------------------------
+       HIGH-QUALITY 120 GSM ARCHIVAL COTTON STATIONERY SHEET
+       -------------------------------------------------------------------- */
+    .stationery-pad {
       position: relative;
-      background-color: var(--paper-bg);
+      border-radius: 14px 14px 16px 16px;
+      background: linear-gradient(180deg, var(--paper-top) 0%, var(--paper-bottom) 100%);
+      border: 1px solid var(--paper-edge);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        inset 0 18px 28px -22px rgba(15, 23, 42, 0.14),
+        0 4px 0 -1px var(--paper-stack-1),
+        0 5px 0 -1px var(--paper-edge),
+        0 9px 0 -2px var(--paper-stack-2),
+        0 10px 0 -2px var(--paper-edge),
+        0 22px 44px -12px rgba(15, 23, 42, 0.14);
+      overflow: hidden;
+      transition: all 0.22s ease;
+    }
+
+    /* Tactile cotton-fiber grain overlay (inline SVG turbulence) */
+    .stationery-pad::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+      opacity: var(--paper-grain-opacity);
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    .stationery-head {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 18px 9px 56px;
+      background: var(--paper-header-bg);
+      border-bottom: 1.5px solid var(--paper-rule);
+    }
+
+    .stationery-ruled-body {
+      position: relative;
       background-image: repeating-linear-gradient(
         to bottom,
         transparent 0px,
-        transparent 29px,
-        var(--paper-line) 29px,
-        var(--paper-line) 30px
+        transparent 33px,
+        var(--paper-rule) 33px,
+        var(--paper-rule) 34px
       );
-      background-position: 0 12px;
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), var(--glass-shadow);
-      overflow: hidden;
+      background-position: 0 14px;
     }
 
-    .lined-paper-shell::before {
+    /* Classic double crimson margin rule */
+    .stationery-ruled-body::before {
       content: "";
       position: absolute;
       top: 0;
       bottom: 0;
-      left: 40px;
-      width: 1.5px;
-      background: var(--margin-red);
+      left: 42px;
+      width: 5px;
+      border-left: 1.25px solid var(--margin-red-1);
+      border-right: 1px solid var(--margin-red-2);
       pointer-events: none;
       z-index: 2;
     }
@@ -136,29 +200,41 @@
       border: none;
       outline: none;
       resize: vertical;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 16px;
-      line-height: 30px;
-      padding: 12px 18px 18px 54px;
-      color: var(--ink-primary);
-      min-height: 220px;
+      font-family: Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 34px;
+      letter-spacing: 0.006em;
+      padding: 14px 22px 24px 60px;
+      color: var(--fountain-ink);
+      min-height: clamp(440px, 58vh, 720px);
       position: relative;
       z-index: 3;
+      transition: min-height 0.22s ease;
+    }
+
+    .paper-textarea.expanded {
+      min-height: 76vh;
     }
 
     .paper-textarea::placeholder {
       color: var(--ink-muted);
       font-style: italic;
+      opacity: 0.78;
     }
 
     .ink-canvas {
       display: block;
       width: 100%;
-      height: 300px;
+      height: clamp(440px, 60vh, 720px);
       touch-action: none;
       cursor: crosshair;
       position: relative;
       z-index: 3;
+      transition: height 0.22s ease;
+    }
+
+    .ink-canvas.expanded {
+      height: 76vh;
     }
 
     .btn-primary {
@@ -187,7 +263,7 @@
     .dock-bar {
       position: fixed;
       left: 50%;
-      bottom: 16px;
+      bottom: 14px;
       transform: translateX(-50%);
       z-index: 40;
       background: var(--dock-bg);
@@ -196,16 +272,16 @@
       border: 1px solid var(--glass-border);
       box-shadow: 0 14px 36px rgba(15, 23, 42, 0.14);
       border-radius: 999px;
-      padding: 6px;
+      padding: 5px;
       display: flex;
       align-items: center;
       gap: 4px;
-      max-width: calc(100vw - 24px);
+      max-width: calc(100vw - 20px);
     }
 
     .dock-btn {
       border-radius: 999px;
-      padding: 9px 15px;
+      padding: 9px 16px;
       font-size: 13px;
       font-weight: 600;
       color: var(--ink-secondary);
@@ -244,8 +320,8 @@
       left: 50%;
       bottom: 0;
       transform: translate(-50%, 102%);
-      width: min(760px, 100vw);
-      max-height: 82vh;
+      width: min(820px, 100vw);
+      max-height: 84vh;
       z-index: 60;
       background: var(--glass-strong);
       backdrop-filter: blur(24px) saturate(170%);
@@ -290,12 +366,12 @@
   </style>
 </head>
 <body>
-  <!-- TOP EDITORIAL GLASS HEADER -->
-  <header class="sticky top-0 z-30 px-4 pt-3 pb-2">
-    <div class="max-w-4xl mx-auto glass-card px-4 py-3 flex items-center justify-between gap-3">
+  <!-- COMPACT EDITORIAL GLASS HEADER -->
+  <header class="sticky top-0 z-30 px-3 sm:px-5 pt-2.5 pb-2">
+    <div class="max-w-5xl mx-auto glass-card px-4 py-2.5 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
-        <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-             style="background: linear-gradient(135deg, #0D9488, #2DD4BF); color: #fff; font-family: Georgia, serif; font-weight: 700; font-size: 18px;">
+        <div class="w-8 h-8 rounded-xl flex items-center justify-center shrink-0"
+             style="background: linear-gradient(135deg, #0D9488, #2DD4BF); color: #fff; font-family: Georgia, serif; font-weight: 700; font-size: 17px;">
           V
         </div>
         <div class="min-w-0">
@@ -315,8 +391,7 @@
       <div class="flex items-center gap-2 shrink-0">
         <button id="themeToggleBtn"
                 class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold transition"
-                style="color: var(--ink-secondary);"
-                title="Switch between FeelCue Paper-Glass and Obsidian Glass">
+                style="color: var(--ink-secondary);">
           Paper-Glass
         </button>
         <button id="openDrawerTopBtn"
@@ -329,29 +404,34 @@
     </div>
   </header>
 
-  <!-- MAIN WORKSPACE -->
-  <main class="max-w-4xl mx-auto px-4 pt-2 space-y-5">
+  <!-- MAIN WORKSPACE (WIDE TABLET STUDIO) -->
+  <main class="max-w-5xl mx-auto px-3 sm:px-5 pt-1.5 space-y-5">
 
-    <!-- MODE 1: SINGLE MESSAGE LINED-PAPER CALIBRATOR -->
+    <!-- MODE 1: FULL-HEIGHT ARCHIVAL STATIONERY CALIBRATOR -->
     <section id="panelSingle" class="space-y-4">
-      <div class="glass-card p-4 sm:p-5 space-y-3">
+      <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 class="text-sm font-bold tracking-tight">Capture Studio · Single Message Calibrator</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
-              Locks deterministic syntax first, then weighs subtext &amp; caps uncoupled guesses.
+              Locks deterministic syntax first, then runs live Gemini subtext &amp; caps uncoupled guesses.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-1.5">
             <button id="loadTomBtn"
                     class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
                     style="color: var(--accent-teal);">
-              Load Tom (BS7) Test
+              Load Tom (BS7)
             </button>
             <button id="pasteBtn"
                     class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
                     style="color: var(--ink-secondary);">
               Paste
+            </button>
+            <button id="expandTextBtn"
+                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
+                    style="color: var(--ink-secondary);">
+              Expand Sheet
             </button>
             <button id="clearTextBtn"
                     class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold hover:opacity-90"
@@ -361,11 +441,21 @@
           </div>
         </div>
 
-        <!-- Lined Paper Editor -->
-        <div class="lined-paper-shell">
-          <textarea id="messageInput"
-                    class="paper-textarea"
-                    placeholder="Drop or type a WhatsApp message, email, or lead enquiry onto the sheet..."></textarea>
+        <!-- Luxury 120 GSM Archival Cotton Stationery Pad -->
+        <div class="stationery-pad">
+          <div class="stationery-head">
+            <span class="mono-num text-[10px] tracking-[0.14em] uppercase font-semibold" style="color: var(--ink-muted);">
+              120 GSM ARCHIVAL COTTON · FOLIO SHEET
+            </span>
+            <span id="liveWordCounter" class="mono-num text-[11px]" style="color: var(--ink-muted);">
+              0 words
+            </span>
+          </div>
+          <div class="stationery-ruled-body">
+            <textarea id="messageInput"
+                      class="paper-textarea"
+                      placeholder="Write or paste a WhatsApp message, email, or lead enquiry onto the archival sheet..."></textarea>
+          </div>
         </div>
 
         <!-- Action & Options Bar -->
@@ -381,7 +471,7 @@
             </label>
           </div>
 
-          <button id="runSingleBtn" class="btn-primary px-5 py-2.5 rounded-full text-sm flex items-center gap-2">
+          <button id="runSingleBtn" class="btn-primary px-6 py-2.5 rounded-full text-sm flex items-center gap-2">
             <span id="runSingleLabel">Run 3-Tier Calibration</span>
           </button>
         </div>
@@ -391,39 +481,36 @@
     <!-- MODE 2: MULTI-CHAT WHATSAPP STREAM MERGER -->
     <section id="panelStream" class="hidden space-y-4">
       <div class="glass-card p-4 sm:p-5 space-y-4">
-        <div class="flex flex-wrap items-center justify-between gap-2">
-          <div>
-            <h2 class="text-sm font-bold tracking-tight">Chronological WhatsApp Stream</h2>
-            <p class="text-xs" style="color: var(--ink-muted);">
-              Unlocks Kim–Jo burstiness (<span class="mono-num">n ≥ 2</span> gaps), cross-chat jumps, and 24h circadian correlation (<span class="mono-num">n ≥ 10</span>).
-            </p>
-          </div>
+        <div>
+          <h2 class="text-sm font-bold tracking-tight">Chronological WhatsApp Stream</h2>
+          <p class="text-xs" style="color: var(--ink-muted);">
+            Unlocks Kim–Jo burstiness (<span class="mono-num">n ≥ 2</span> gaps), cross-chat jumps, and 24h circadian correlation (<span class="mono-num">n ≥ 10</span>).
+          </p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label class="glass-pill rounded-2xl p-4 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2"
+          <label class="glass-pill rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer border-dashed border-2"
                  style="border-color: var(--glass-border);">
             <span class="text-sm font-semibold" style="color: var(--accent-teal);">Select WhatsApp .txt Export(s)</span>
             <span class="text-xs mt-1" style="color: var(--ink-muted);">Supports multiple threads merged chronologically</span>
             <input id="waFileInput" type="file" accept=".txt" multiple class="hidden" />
           </label>
 
-          <div class="glass-pill rounded-2xl p-4 space-y-2">
+          <div class="glass-pill rounded-2xl p-5 space-y-2.5">
             <label class="block text-xs font-semibold" style="color: var(--ink-secondary);">
               Target Sender Filter (blank = all senders)
             </label>
             <input id="senderFilterInput"
                    type="text"
                    placeholder="e.g. Rob or Tom"
-                   class="w-full px-3 py-2 rounded-xl text-sm outline-none"
-                   style="background: var(--paper-bg); border: 1px solid var(--glass-border); color: var(--ink-primary);" />
+                   class="w-full px-3.5 py-2.5 rounded-xl text-sm outline-none"
+                   style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);" />
             <div id="streamFileSummary" class="mono-num text-[11px]" style="color: var(--ink-muted);">
               No files loaded yet.
             </div>
           </div>
         </div>
 
-        <!-- Local Stream Preview KPIs -->
         <div id="streamPreviewGrid" class="hidden grid grid-cols-2 sm:grid-cols-4 gap-2.5">
           <div class="glass-pill rounded-2xl p-3">
             <div class="text-[11px]" style="color: var(--ink-muted);">Substantive Msgs</div>
@@ -444,28 +531,33 @@
         </div>
 
         <div class="flex justify-end">
-          <button id="runStreamBtn" class="btn-primary px-5 py-2.5 rounded-full text-sm" disabled>
+          <button id="runStreamBtn" class="btn-primary px-6 py-2.5 rounded-full text-sm" disabled>
             Calibrate Chronological Stream
           </button>
         </div>
       </div>
     </section>
 
-    <!-- MODE 3: S-PEN INK TELEMETRY STUDIO -->
+    <!-- MODE 3: FULL-HEIGHT S-PEN INK STATIONERY STUDIO -->
     <section id="panelInk" class="hidden space-y-4">
-      <div class="glass-card p-4 sm:p-5 space-y-3">
+      <div class="glass-card p-3.5 sm:p-5 space-y-3.5">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 class="text-sm font-bold tracking-tight">S-Pen Ink Studio · Kinematic Telemetry</h2>
             <p class="text-xs" style="color: var(--ink-muted);">
-              DPR-corrected velocity, pressure variance, and left-hand 15.5° tilt zero-offset.
+              DPR-corrected fountain ink, pressure variance, and left-hand 15.5° tilt zero-offset. Strokes persist across tabs.
             </p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <label class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 cursor-pointer">
               <input id="leftHandOffset" type="checkbox" checked class="accent-teal-600" />
               <span>15.5° Left-Hand Zero</span>
             </label>
+            <button id="expandInkBtn"
+                    class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
+                    style="color: var(--ink-secondary);">
+              Expand Pad
+            </button>
             <button id="clearInkBtn"
                     class="glass-pill px-3 py-1.5 rounded-full text-xs font-semibold"
                     style="color: var(--danger-red);">
@@ -474,8 +566,18 @@
           </div>
         </div>
 
-        <div class="lined-paper-shell">
-          <canvas id="inkCanvas" class="ink-canvas"></canvas>
+        <div class="stationery-pad">
+          <div class="stationery-head">
+            <span class="mono-num text-[10px] tracking-[0.14em] uppercase font-semibold" style="color: var(--ink-muted);">
+              120 GSM ARCHIVAL COTTON · S-PEN INK SURFACE
+            </span>
+            <span id="inkHeaderStat" class="mono-num text-[11px]" style="color: var(--ink-muted);">
+              Ready for stylus
+            </span>
+          </div>
+          <div class="stationery-ruled-body">
+            <canvas id="inkCanvas" class="ink-canvas"></canvas>
+          </div>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
@@ -503,14 +605,19 @@
 
         <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
           <span class="text-xs" style="color: var(--ink-muted);">
-            Tip: Toggle <strong>Fuse S-Pen Ink</strong> in the Single Calibrator to combine handwriting + text.
+            Your strokes stay saved on the sheet when you switch back to the Calibrator.
           </span>
-          <button id="fuseAndSwitchBtn" class="btn-primary px-4 py-2 rounded-full text-xs">
+          <button id="fuseAndSwitchBtn" class="btn-primary px-5 py-2.5 rounded-full text-xs">
             Attach Ink &amp; Open Calibrator
           </button>
         </div>
       </div>
     </section>
+
+    <!-- ERROR BANNER -->
+    <div id="errorBanner" class="hidden glass-card p-4 text-sm font-medium"
+         style="border-color: var(--danger-red); background: var(--danger-bg); color: var(--danger-red);">
+    </div>
 
     <!-- LIVE RESULTS STACK (3-TIER ARCHITECTURE) -->
     <section id="resultsSection" class="hidden space-y-4">
@@ -519,7 +626,7 @@
       <div class="glass-card p-5 space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full" style="background: var(--accent-teal);"></span>
+            <span class="w-2.5 h-2.5 rounded-full" id="llmHealthDot" style="background: var(--accent-teal);"></span>
             <h3 class="text-xs font-bold uppercase tracking-wider" style="color: var(--accent-teal);">
               Executive Synthesis
             </h3>
@@ -528,6 +635,9 @@
         </div>
 
         <p id="executiveReadText" class="serif-prose text-base sm:text-[17px] leading-relaxed"></p>
+
+        <div id="llmDiagHint" class="hidden text-xs p-3 rounded-xl mono-num"
+             style="background: var(--warn-bg); color: var(--warn-amber);"></div>
 
         <div id="suggestedReplyBox" class="hidden pt-3 border-t" style="border-color: var(--glass-border);">
           <div class="flex items-center justify-between gap-2 mb-1.5">
@@ -604,27 +714,14 @@
         <div id="tier3List" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       </div>
     </section>
-
-    <!-- ERROR BANNER -->
-    <div id="errorBanner" class="hidden glass-card p-4 text-sm font-medium"
-         style="border-color: var(--danger-red); background: var(--danger-bg); color: var(--danger-red);">
-    </div>
   </main>
 
-  <!-- FLOATING BOTTOM COMMAND DOCK (FEELCUE STYLE) -->
+  <!-- FLOATING BOTTOM COMMAND DOCK -->
   <nav class="dock-bar" aria-label="Studio Modes">
-    <button class="dock-btn active" data-mode="single">
-      <span>Calibrator</span>
-    </button>
-    <button class="dock-btn" data-mode="stream">
-      <span>WhatsApp</span>
-    </button>
-    <button class="dock-btn" data-mode="ink">
-      <span>S-Pen Ink</span>
-    </button>
-    <button class="dock-btn" id="dockDrawerBtn" title="Open Diagnostics Drawer">
-      <span>JSON</span>
-    </button>
+    <button class="dock-btn active" data-mode="single"><span>Calibrator</span></button>
+    <button class="dock-btn" data-mode="stream"><span>WhatsApp</span></button>
+    <button class="dock-btn" data-mode="ink"><span>S-Pen Ink</span></button>
+    <button class="dock-btn" id="dockDrawerBtn" title="Open Diagnostics Drawer"><span>JSON</span></button>
   </nav>
 
   <!-- SLIDE-UP DIAGNOSTICS DRAWER -->
@@ -671,17 +768,40 @@
         </div>
       </div>
 
-      <div>
-        <label class="block text-xs font-semibold mb-1.5" style="color: var(--ink-secondary);">
-          Target Edge Function
-        </label>
-        <select id="endpointSelect"
-                class="w-full sm:w-80 px-3 py-2 rounded-xl text-xs mono-num outline-none"
-                style="background: var(--paper-bg); border: 1px solid var(--glass-border); color: var(--ink-primary);">
-          <option value="telemetry-api-index-ts" selected>telemetry-api-index-ts (3-Tier Bayesian Gate)</option>
-          <option value="telemetry-api">telemetry-api (Alt / Legacy Slug)</option>
-          <option value="decode-subtext">decode-subtext (Raw Production Compare)</option>
-        </select>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold mb-1.5" style="color: var(--ink-secondary);">
+            Target Edge Function
+          </label>
+          <select id="endpointSelect"
+                  class="w-full px-3 py-2 rounded-xl text-xs mono-num outline-none"
+                  style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);">
+            <option value="telemetry-api-index-ts" selected>telemetry-api-index-ts (3-Tier Bayesian Gate)</option>
+            <option value="telemetry-api">telemetry-api (Alt / Legacy Slug)</option>
+            <option value="decode-subtext">decode-subtext (Raw Production Compare)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold mb-1.5" style="color: var(--ink-secondary);">
+            Optional Local Gemini Key Override (Device Only)
+          </label>
+          <div class="flex gap-1.5">
+            <input id="localGeminiKeyInput"
+                   type="password"
+                   placeholder="Leave blank to use Supabase Secret"
+                   class="w-full px-3 py-2 rounded-xl text-xs mono-num outline-none"
+                   style="background: var(--paper-top); border: 1px solid var(--glass-border); color: var(--ink-primary);" />
+            <button id="saveLocalKeyBtn"
+                    class="glass-pill px-3 py-1.5 rounded-xl text-xs font-semibold shrink-0"
+                    style="color: var(--accent-teal);">
+              Save
+            </button>
+          </div>
+          <p class="text-[10px] mt-1" style="color: var(--ink-muted);">
+            Stored only in this browser's localStorage — never committed to GitHub.
+          </p>
+        </div>
       </div>
 
       <pre id="rawJsonOut"
@@ -718,7 +838,7 @@ Cheers, Tom`;
     let parsedStreamMessages = [];
 
     // -----------------------------------------------------------------------
-    // 2. THEME & NAVIGATION CONTROLS
+    // 2. THEME, SHEET EXPANSION & NAVIGATION CONTROLS
     // -----------------------------------------------------------------------
     const htmlEl = document.documentElement;
     const themeToggleBtn = document.getElementById("themeToggleBtn");
@@ -726,6 +846,7 @@ Cheers, Tom`;
       const next = htmlEl.getAttribute("data-theme") === "feelcue" ? "obsidian" : "feelcue";
       htmlEl.setAttribute("data-theme", next);
       themeToggleBtn.textContent = next === "feelcue" ? "Paper-Glass" : "Obsidian Glass";
+      redrawInkHistory();
     });
 
     const panels = {
@@ -739,7 +860,7 @@ Cheers, Tom`;
       document.querySelectorAll(".dock-btn[data-mode]").forEach((btn) => {
         btn.classList.toggle("active", btn.dataset.mode === mode);
       });
-      if (mode === "ink") resizeCanvas();
+      if (mode === "ink") requestAnimationFrame(resizeCanvas);
     }
 
     document.querySelectorAll(".dock-btn[data-mode]").forEach((btn) => {
@@ -764,20 +885,57 @@ Cheers, Tom`;
       document.getElementById("drawerFnLabel").textContent = endpointSelect.value;
     });
 
-    // Quick text actions
+    // Device-only Gemini Key override (optional fallback if testing a new key)
+    const localKeyInput = document.getElementById("localGeminiKeyInput");
+    localKeyInput.value = localStorage.getItem("vc_rd_gemini_override") || "";
+    document.getElementById("saveLocalKeyBtn").addEventListener("click", () => {
+      const val = localKeyInput.value.trim();
+      if (val) localStorage.setItem("vc_rd_gemini_override", val);
+      else localStorage.removeItem("vc_rd_gemini_override");
+      const btn = document.getElementById("saveLocalKeyBtn");
+      btn.textContent = val ? "Saved" : "Cleared";
+      setTimeout(() => (btn.textContent = "Save"), 1400);
+    });
+
+    // Sheet Expansion + Live Word Counter
     const messageInput = document.getElementById("messageInput");
+    const liveWordCounter = document.getElementById("liveWordCounter");
+    function updateWordCounter() {
+      const words = messageInput.value.trim().match(/[A-Za-z0-9'’£$€]+/g) || [];
+      liveWordCounter.textContent = `${words.length} ${words.length === 1 ? "word" : "words"}`;
+    }
+    messageInput.addEventListener("input", () => {
+      showError("");
+      updateWordCounter();
+    });
+
+    document.getElementById("expandTextBtn").addEventListener("click", (e) => {
+      const isExp = messageInput.classList.toggle("expanded");
+      e.currentTarget.textContent = isExp ? "Compact Sheet" : "Expand Sheet";
+    });
+
     document.getElementById("loadTomBtn").addEventListener("click", () => {
       messageInput.value = TOM_SAMPLE_TEXT;
+      showError("");
+      updateWordCounter();
     });
+
     document.getElementById("clearTextBtn").addEventListener("click", () => {
       messageInput.value = "";
+      showError("");
+      updateWordCounter();
     });
+
     document.getElementById("pasteBtn").addEventListener("click", async () => {
       try {
         const clip = await navigator.clipboard.readText();
-        if (clip) messageInput.value = clip;
+        if (clip) {
+          messageInput.value = clip;
+          showError("");
+          updateWordCounter();
+        }
       } catch {
-        showError("Clipboard permission blocked by browser — tap inside the lined sheet and paste manually.");
+        showError("Tap inside the archival sheet and hold to paste manually.");
       }
     });
 
@@ -794,7 +952,9 @@ Cheers, Tom`;
       let [, d, mo, y, h, mi, s] = m;
       let yr = parseInt(y, 10);
       if (yr < 100) yr += 2000;
-      const dt = new Date(Date.UTC(yr, parseInt(mo, 10) - 1, parseInt(d, 10), parseInt(h, 10), parseInt(mi, 10), parseInt(s || "0", 10)));
+      const dt = new Date(
+        Date.UTC(yr, parseInt(mo, 10) - 1, parseInt(d, 10), parseInt(h, 10), parseInt(mi, 10), parseInt(s || "0", 10)),
+      );
       return Number.isNaN(dt.getTime()) ? null : dt.toISOString();
     }
 
@@ -878,7 +1038,7 @@ Cheers, Tom`;
     document.getElementById("senderFilterInput").addEventListener("input", updateStreamPreview);
 
     // -----------------------------------------------------------------------
-    // 4. S-PEN INK TELEMETRY STUDIO (DPR-CORRECTED + 15.5° LEFT-HAND OFFSET)
+    // 4. S-PEN INK TELEMETRY STUDIO (PERSISTENT VECTOR STROKES + 15.5° OFFSET)
     // -----------------------------------------------------------------------
     const canvas = document.getElementById("inkCanvas");
     const ctx = canvas.getContext("2d");
@@ -886,6 +1046,8 @@ Cheers, Tom`;
       drawing: false,
       strokes: 0,
       points: 0,
+      strokeHistory: [], // Array of strokes: [{x, y, w}, ...]
+      currentStroke: null,
       velocities: [],
       pressures: [],
       tiltXs: [],
@@ -897,17 +1059,49 @@ Cheers, Tom`;
       endTime: 0,
     };
 
-    function resizeCanvas() {
+    function getInkColor() {
+      return getComputedStyle(htmlEl).getPropertyValue("--stylus-ink").trim() || "#14223B";
+    }
+
+    function redrawInkHistory() {
       const rect = canvas.getBoundingClientRect();
       if (rect.width === 0) return;
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.round(rect.width * dpr);
-      canvas.height = Math.round(rect.height * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      ctx.strokeStyle = getInkColor();
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
+      for (const stroke of inkState.strokeHistory) {
+        if (stroke.length < 2) continue;
+        for (let i = 1; i < stroke.length; i++) {
+          ctx.lineWidth = stroke[i].w;
+          ctx.beginPath();
+          ctx.moveTo(stroke[i - 1].x, stroke[i - 1].y);
+          ctx.lineTo(stroke[i].x, stroke[i].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;
+      const dpr = window.devicePixelRatio || 1;
+      const targetW = Math.round(rect.width * dpr);
+      const targetH = Math.round(rect.height * dpr);
+      if (canvas.width !== targetW || canvas.height !== targetH) {
+        canvas.width = targetW;
+        canvas.height = targetH;
+      }
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      redrawInkHistory();
     }
     window.addEventListener("resize", resizeCanvas);
+
+    document.getElementById("expandInkBtn").addEventListener("click", (e) => {
+      const isExp = canvas.classList.toggle("expanded");
+      e.currentTarget.textContent = isExp ? "Compact Pad" : "Expand Pad";
+      setTimeout(resizeCanvas, 240);
+    });
 
     function mean(arr) {
       return arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : 0;
@@ -926,6 +1120,8 @@ Cheers, Tom`;
       document.getElementById("inkPress").textContent = mean(inkState.pressures).toFixed(2);
       document.getElementById("inkTiltX").textContent = `${mean(inkState.tiltXs).toFixed(1)}°`;
       document.getElementById("inkTiltY").textContent = `${mean(inkState.tiltYs).toFixed(1)}°`;
+      document.getElementById("inkHeaderStat").textContent =
+        inkState.strokes > 0 ? `${inkState.strokes} strokes captured` : "Ready for stylus";
     }
 
     function getKinematicsPayload() {
@@ -947,13 +1143,21 @@ Cheers, Tom`;
     canvas.addEventListener("pointerdown", (e) => {
       canvas.setPointerCapture(e.pointerId);
       const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const press = e.pressure > 0 ? e.pressure : 0.5;
+      const width = Math.max(1.2, press * 3.8);
+
       inkState.drawing = true;
       inkState.strokes++;
-      inkState.lastX = e.clientX - rect.left;
-      inkState.lastY = e.clientY - rect.top;
+      inkState.lastX = x;
+      inkState.lastY = y;
       inkState.lastT = performance.now();
       if (!inkState.startTime) inkState.startTime = inkState.lastT;
       inkState.endTime = inkState.lastT;
+
+      inkState.currentStroke = [{ x, y, w: width }];
+      inkState.strokeHistory.push(inkState.currentStroke);
       updateInkReadout();
     });
 
@@ -969,6 +1173,7 @@ Cheers, Tom`;
       const press = e.pressure > 0 ? e.pressure : 0.5;
       const offset = document.getElementById("leftHandOffset").checked ? 15.5 : 0;
       const adjTiltX = (e.tiltX || 0) + offset;
+      const width = Math.max(1.2, press * 3.8);
 
       inkState.points++;
       inkState.velocities.push(vel);
@@ -977,9 +1182,14 @@ Cheers, Tom`;
       inkState.tiltYs.push(e.tiltY || 0);
       inkState.endTime = now;
 
-      const strokeColor = htmlEl.getAttribute("data-theme") === "obsidian" ? "#2DD4BF" : "#0F172A";
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = Math.max(1.4, press * 4.2);
+      if (inkState.currentStroke) {
+        inkState.currentStroke.push({ x, y, w: width });
+      }
+
+      ctx.strokeStyle = getInkColor();
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.lineWidth = width;
       ctx.beginPath();
       ctx.moveTo(inkState.lastX, inkState.lastY);
       ctx.lineTo(x, y);
@@ -991,14 +1201,20 @@ Cheers, Tom`;
       updateInkReadout();
     });
 
-    const endStroke = () => { inkState.drawing = false; };
+    const endStroke = () => {
+      inkState.drawing = false;
+      inkState.currentStroke = null;
+    };
     canvas.addEventListener("pointerup", endStroke);
     canvas.addEventListener("pointercancel", endStroke);
 
     document.getElementById("clearInkBtn").addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
       inkState.strokes = 0;
       inkState.points = 0;
+      inkState.strokeHistory = [];
+      inkState.currentStroke = null;
       inkState.velocities = [];
       inkState.pressures = [];
       inkState.tiltXs = [];
@@ -1036,13 +1252,17 @@ Cheers, Tom`;
           ? { text: payload.text || (payload.messages || []).map((m) => m.text).join("\n") }
           : payload;
 
+      const headers = {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_PUBLISHABLE_KEY,
+        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      };
+      const localKey = (localStorage.getItem("vc_rd_gemini_override") || "").trim();
+      if (localKey) headers["x-gemini-key"] = localKey;
+
       const res = await fetch(url, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "apikey": SUPABASE_PUBLISHABLE_KEY,
-          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-        },
+        headers,
         body: JSON.stringify(bodyToSend),
       });
 
@@ -1065,7 +1285,6 @@ Cheers, Tom`;
       lastResponseJson = data;
       document.getElementById("rawJsonOut").textContent = JSON.stringify(data, null, 2);
 
-      // If comparing raw decode-subtext, open Diagnostics drawer to show exact raw JSON
       if (fnName !== "telemetry-api-index-ts" && fnName !== "telemetry-api") {
         setDrawer(true);
         return;
@@ -1074,13 +1293,27 @@ Cheers, Tom`;
       const sec = document.getElementById("resultsSection");
       sec.classList.remove("hidden");
 
-      // Executive Read + Meta
+      const isLiveLlm = data.meta?.llm_status === "live_gemini_ok";
+      document.getElementById("llmHealthDot").style.background = isLiveLlm ? "#10B981" : "#F59E0B";
       document.getElementById("executiveReadText").textContent = data.executive_read || "No synthesis returned.";
+
       const metaBadges = document.getElementById("metaBadges");
       metaBadges.innerHTML = `
-        <span class="mono-num text-[10px] px-2 py-0.5 rounded-full glass-pill">${escapeHtml(data.meta?.llm_model || "unknown")}</span>
-        <span class="mono-num text-[10px] px-2 py-0.5 rounded-full glass-pill">${escapeHtml(data.meta?.mode || "single")} · n=${data.meta?.guards?.sample_n ?? 1}</span>
+        <span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill" style="color: ${isLiveLlm ? "#059669" : "var(--warn-amber)"};">
+          ${escapeHtml(data.meta?.llm_model || "unknown")}
+        </span>
+        <span class="mono-num text-[10px] px-2.5 py-0.5 rounded-full glass-pill">
+          ${escapeHtml(data.meta?.mode || "single")} · n=${data.meta?.guards?.sample_n ?? 1}
+        </span>
       `;
+
+      const diagHint = document.getElementById("llmDiagHint");
+      if (!isLiveLlm && data.meta?.llm_status && data.meta.llm_status !== "llm_toggle_off") {
+        diagHint.textContent = `LLM Status: ${data.meta.llm_status} — Check GEMINI_API_KEY in Supabase Edge Function Secrets (or test via Diagnostics drawer).`;
+        diagHint.classList.remove("hidden");
+      } else {
+        diagHint.classList.add("hidden");
+      }
 
       const replyBox = document.getElementById("suggestedReplyBox");
       if (data.suggested_reply && data.suggested_reply.trim()) {
@@ -1090,7 +1323,6 @@ Cheers, Tom`;
         replyBox.classList.add("hidden");
       }
 
-      // Sample Locks
       const g = data.meta?.guards || {};
       document.getElementById("sampleLockPills").innerHTML = `
         <span class="mono-num text-[10px] px-2.5 py-1 rounded-full glass-pill" style="color: ${g.burstiness_unlocked ? "#059669" : "var(--ink-muted)"};">
@@ -1101,7 +1333,6 @@ Cheers, Tom`;
         </span>
       `;
 
-      // Tier 1 Grid
       const syn = data.tier1_verified_anchors?.syntax || {};
       const tmp = data.tier1_verified_anchors?.temporal || {};
       const kpis = [
@@ -1127,6 +1358,7 @@ Cheers, Tom`;
         .join("");
 
       const matchChips = [
+        ...(syn.wa_header_stripped ? ["patch: WhatsApp timestamp prefix stripped"] : []),
         ...(syn.hedge_matches || []).map((m) => `hedge: "${m}"`),
         ...(syn.modal_matches || []).map((m) => `modal: "${m}"`),
         ...(syn.polite_help_filtered ? ["patch: polite 'help' excluded from urgency"] : []),
@@ -1138,7 +1370,6 @@ Cheers, Tom`;
         )
         .join("");
 
-      // Gate Audit Badges
       const audit = data.gate_audit || {};
       document.getElementById("gateAuditBadge").textContent =
         `Verified: ${audit.citations_verified ?? 0} · Rejected: ${audit.citations_rejected ?? 0}`;
@@ -1147,7 +1378,6 @@ Cheers, Tom`;
       document.getElementById("diagLocks").textContent = String(audit.sample_locks_triggered ?? 0);
       document.getElementById("diagShift").textContent = `${(audit.avg_confidence_adjustment ?? 0) >= 0 ? "+" : ""}${audit.avg_confidence_adjustment ?? 0}`;
 
-      // Tier 2 List
       const t2 = data.tier2_aligned_subtext || [];
       document.getElementById("tier2List").innerHTML = t2
         .map((item) => {
@@ -1190,7 +1420,6 @@ Cheers, Tom`;
         })
         .join("");
 
-      // Tier 3 List
       const t3 = data.tier3_capped_extrapolations || [];
       document.getElementById("tier3List").innerHTML = t3
         .map((item) => {
@@ -1231,7 +1460,7 @@ Cheers, Tom`;
       const kinematics = attachInk ? getKinematicsPayload() : null;
 
       if (!text && !kinematics) {
-        showError("Enter a message on the lined sheet (or tap 'Load Tom (BS7) Test') before running.");
+        showError("Write on the sheet (or tap 'Load Tom (BS7)') before running.");
         return;
       }
 
